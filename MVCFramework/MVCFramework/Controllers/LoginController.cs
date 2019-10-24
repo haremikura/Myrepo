@@ -7,6 +7,9 @@ using System.Web.Mvc;
 namespace MVCFramework.Controllers
 
 {
+    /// <summary>
+    /// 「[]
+    /// </summary>
     public class LoginController : Controller
     {
         private readonly TextEditorContext _context = new TextEditorContext();
