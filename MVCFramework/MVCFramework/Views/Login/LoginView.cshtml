@@ -1,0 +1,44 @@
+﻿@model  MVCFramework.Models.Entity.ServiceUser
+
+@{
+
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ログイン;</title>
+
+    @Styles.Render("~/Content/css")
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-md navbar-light bg-light">
+        <a class="navbar-brand" href="#">Navbar</a>
+    </nav>
+
+    <div class="central_ontena ">
+        <div id="hoge" class="container">
+            <div class="card login_contena p-4">
+                <h1 id="profile-name" class="profile-name-card text-center">ログイン</h1>
+                @using (@Html.BeginForm("Index", "Login"))
+                {
+                <div class="form-signin">
+
+                    @Html.TextBoxFor(model => model.UserName, new { @class = "form-control mb-2", name = "UserName", placeholder = "Username" })
+                    @Html.PasswordFor(model => model.Password, new { @class = "form-control mb-2", name = "Password", placeholder = "Password" })
+                    <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit">Sign in</button>
+                </div>
+                }
+            </div>
+        </div>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+</body>
+</html>

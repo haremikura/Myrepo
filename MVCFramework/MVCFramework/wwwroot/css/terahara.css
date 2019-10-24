@@ -1,0 +1,52 @@
+.themeColor_container {
+    margin: 0px 30px;
+}
+
+.themeColor_indigator {
+    width: 33px;
+    height: 33px;
+    border: 2px solid rgba(0, 0, 0, 1);
+    margin: auto 10px auto 0px;
+}
+
+.navbar-nav > li {
+    padding: 10px 10px 10px 10px;
+    border-left: 1px solid rgba(20, 20, 20, 1)
+}
+
+.form-contena {
+    margin: 10px;
+}
+
+.navbar-nav > li:hover {
+    background-color: aqua;
+}
+
+.form-signin {
+    padding: 0px 25px;
+}
+
+.right-popup {
+    width: 200px;
+    position: fixed;
+    z-index: 2;
+    top: 0px;
+    left: 0px;
+    visibility: hidden;
+}
+
+.sidebar_cotent {
+    display: none;
+}
+
+.grup_small {
+    margin: 0px 25px 10px 25px;
+}
+
+.nav_selector {
+    padding: 0px 10px;
+}
+
+.nav_selection {
+    margin: 5px 5px;
+}
