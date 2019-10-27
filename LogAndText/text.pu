@@ -1,0 +1,33 @@
+@startuml
+entity User {
+    UserID
+    Name
+    Password
+}
+
+entity TextFilesList {
+    FileID
+    FileName
+    UserID
+    Update
+    Text
+}
+
+entity Marker{
+  MarkerID
+  Name
+  Color
+}
+
+
+entity MarkingLog{
+  MarkerID
+  FileID
+  HeadIndex
+  Lenght  
+}
+
+TextFilesList ||--ri--o{ User
+TextFilesList ||-le-|| MarkingLog
+MarkingLog }o-le-|| Marker
+@enduml

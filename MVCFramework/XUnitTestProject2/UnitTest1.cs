@@ -1,6 +1,6 @@
 using MVCFramework.Models;
 using MVCFramework.Content.Content;using MVCFramework.Infrastracture.DBConnection;
-using MVCFramework.Repositries; 
+using  MVCFramework.Infrastracture.Repositries; 
  using MVCFramework.Models.Entity;
 using System.Data.SqlClient;
 using System.Diagnostics;

@@ -1,6 +1,6 @@
 ﻿using System.Data.SqlClient;
 
-namespace MVCFramework.Infrastracture.DBConnection
+namespace MVCFramework.Infrastracture.Repositries
 
 {
     public class ReaderRepository

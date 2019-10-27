@@ -1,6 +1,6 @@
 ﻿using Moq;
 using MVCFramework.Models.Entity;
-using MVCFramework.Repositries;
+using  MVCFramework.Infrastracture.Repositries;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;

@@ -1,5 +1,5 @@
 ﻿using MVCFramework.Models.Entity;
-using MVCFramework.Repositries;
+using  MVCFramework.Infrastracture.Repositries;
 using System;
 using System.Linq;
 using System.Security.Cryptography;

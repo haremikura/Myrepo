@@ -1,6 +1,6 @@
 ﻿using MVCFramework.Content.Content;using MVCFramework.Infrastracture.DBConnection;
 
-using MVCFramework.Repositries;
+using MVCFramework.Infrastracture.Repositries;
 using MVCFramework.Models.Entity;
 
 using MVCFramework.Models;
@@ -26,8 +26,8 @@ namespace XUnitTestProject2
         {
             var testList = new List<ServiceUser>
                     {
-                       new ServiceUser { UserName = "テスト智之", Password = "1234" },
-                       new ServiceUser { UserName = "asdf", Password = "1111" }
+                       new ServiceUser() { UserName = "テスト智之", Password = "1234" },
+                       new ServiceUser() { UserName = "asdf", Password = "1111" }
                     };
 
             return testList;

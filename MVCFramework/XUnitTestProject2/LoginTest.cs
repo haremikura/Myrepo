@@ -5,10 +5,11 @@ using MVCFramework.Infrastracture.DBConnection;
 
 using MVCFramework.Models.Entity;
 using MVCFramework.Models.Session;
-using MVCFramework.Repositries;
+using MVCFramework.Infrastracture.Repositries;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Diagnostics;
 using System.Linq;
 using Xunit;
 using XUnitTestProject2.Domain;
@@ -45,30 +46,35 @@ namespace XUnitTestProject2
         [Fact]
         public void TestMoq()
         {
-            var dataEntity = new List<ServiceUser>
+            //try
+            //{
+
+            //}
+            //catch (Exception e)
+            //{
+            //    Debug.WriteLine(e.StackTrace);
+            //    Assert.False(true);
+            //}
+
+            List<IEntity> dataEntity = new List<IEntity>()
                     {
                         new ServiceUser {UserName = "tesuto", Password = "terahara" },
                         new ServiceUser {UserName = "tesuto", Password = "terahara" },
-                    }.AsQueryable();
+                    };
 
-            // DbSetのMock
-            var mockMyEntity = new Mock<DbSet<ServiceUser>>();
-            // DbSetとテスト用データを紐付け
-            mockMyEntity.As<IQueryable<ServiceUser>>().Setup(m => m.Provider).Returns(dataEntity.Provider);
-            mockMyEntity.As<IQueryable<ServiceUser>>().Setup(m => m.Expression).Returns(dataEntity.Expression);
-            mockMyEntity.As<IQueryable<ServiceUser>>().Setup(m => m.ElementType).Returns(dataEntity.ElementType);
-            mockMyEntity.As<IQueryable<ServiceUser>>().Setup(m => m.GetEnumerator()).Returns(dataEntity.GetEnumerator());
 
+            var mockContext = new MockCreator(dataEntity).GetMockContext();
             // DBContextにMockを設定
-            var mockContext = new Mock<TextEditorContext>();
-            mockContext.Setup(m => m.ServiceUser).Returns(mockMyEntity.Object);
-            mockMyEntity.Setup(f => f.Create()).Returns(new ServiceUser());
 
+            Debug.WriteLine("\r======");
+            foreach (var entityIndex in mockContext.Object.ServiceUser.ToList())
+            {
+                Debug.WriteLine($"{entityIndex.UserId} {entityIndex.UserName} {entityIndex.Password}");
+            }
 
-
+            Assert.True(mockContext.Object.ServiceUser.Count() == 2);
 
         }
-
         [Fact]
         public void TestGenericType()
         {

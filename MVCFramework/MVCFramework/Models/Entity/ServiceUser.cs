@@ -6,6 +6,18 @@ namespace MVCFramework.Models.Entity
     [Table("ServiceUser")]
     public partial class ServiceUser : IEntity
     {
+
+        public ServiceUser() { }
+        public ServiceUser(IEntity x)
+        {
+            ServiceUser serviceUser = (ServiceUser)x;
+
+            UserId = serviceUser.UserId;
+            UserName = serviceUser.UserName;
+            Password = serviceUser.Password;
+
+        }
+
         [Key]
         [Column(Order = 0)]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]

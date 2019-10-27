@@ -1,5 +1,5 @@
 ﻿using MVCFramework.Infrastracture.DBConnection;
-using MVCFramework.Repositries;
+using MVCFramework.Infrastracture.Repositries;
 using System.Web.Mvc;
 
 namespace MVCFramework.Controllers
@@ -9,7 +9,7 @@ namespace MVCFramework.Controllers
 
     public class TextEditorController : Controller
     {
-        private readonly TextEditorContext _context = new TextEditorContext();
+        private readonly IDbContext _context = new TextEditorContext();
         private readonly DbCruder _dbCruder;
 
         public TextEditorController()

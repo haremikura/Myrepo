@@ -1,10 +1,14 @@
+
 using MVCFramework.Models.Entity;
 using System.Data.Entity;
 
-namespace MVCFramework.Repositries
+namespace MVCFramework.Infrastracture.Repositries
 {
-    public class TextEditorContext : DbContext
+    public class TextEditorContext : DbContext, IDbContext
     {
+
+
+
         public TextEditorContext() : base("TextEditorContext")
         {
             Configuration.LazyLoadingEnabled = false;

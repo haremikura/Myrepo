@@ -1,7 +1,7 @@
 ﻿using MVCFramework.Infrastracture.DBConnection;
 using MVCFramework.Models.Entity;
 using MVCFramework.Models.Session;
-using MVCFramework.Repositries;
+using MVCFramework.Infrastracture.Repositries;
 using System.Web.Mvc;
 
 namespace MVCFramework.Controllers
@@ -12,7 +12,7 @@ namespace MVCFramework.Controllers
     /// </summary>
     public class LoginController : Controller
     {
-        private readonly TextEditorContext _context = new TextEditorContext();
+        private readonly IDbContext _context = new TextEditorContext();
         private readonly DbCruder _dbCruder;
 
         public ActionResult LoginView()
@@ -22,7 +22,8 @@ namespace MVCFramework.Controllers
 
         public ActionResult Index(ServiceUser user)
         {
-            bool isAuthorized = new UserSession(_context).Login(user);
+
+            bool isAuthorized = new UserSession((TextEditorContext)_context).Login(user);
 
             if (isAuthorized)
             {

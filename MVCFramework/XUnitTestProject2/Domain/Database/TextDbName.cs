@@ -1,4 +1,4 @@
-﻿using MVCFramework.Repositries;
+﻿using  MVCFramework.Infrastracture.Repositries;
 using MVCFramework.Models.Entity;
 using System;
 using System.Collections.Generic;

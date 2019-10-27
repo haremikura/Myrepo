@@ -1,4 +1,5 @@
 ﻿using MVCFramework.Content.Content;
+using MVCFramework.Infrastracture.Repositries;
 using System.Collections.Generic;
 
 namespace MVCFramework.Infrastracture.DBConnection
