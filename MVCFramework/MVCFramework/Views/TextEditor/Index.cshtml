@@ -1,39 +1,61 @@
-﻿@{
+﻿@model IEnumerable<MVCFramework.Models.Entity.TextFilesList>
+@{
     ViewData["Title"] = "選択画面";
 }
-
 <div class="container mt-3">
-    <div class="content mt-4">
-        <div class="card card_button">
-            <div class="card-body shadow">
-                <div class="stat-widget-one">
-                    <div class="stat-icon dib">
-                        <i class="ti-money text-success border-success">
-                        </i>
-                    </div>
-                    <div class="dib">
-                        <div class="stat-digit">1,012</div>
-                        <div class="stat-text">Total Profit</div>
+    @foreach (var index in Model)
+    {
+        <div class="content mt-4">
+            <div class="card card_button">
+                <div class="card-body shadow">
+                    <div class="stat-widget-one">
+                        <div class="stat-icon dib">
+                            <i class="ti-money text-success border-success">
+                            </i>
+                        </div>
+                        <div class="dib">
+                            <div class="stat-digit">@index.FileName</div>
+                            <div class="stat-text">@index.Update</div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+    }
 
-    <div class="content mt-4">
-        <div class="card card_button">
-            <div class="card-body shadow">
-                <div class="stat-widget-one">
-                    <div class="stat-icon dib">
-                        <i class="ti-money text-success border-success">
-                        </i>
-                    </div>
-                    <div class="dib">
-                        <div class="stat-digit">1,012</div>
-                        <div class="stat-text">Total Profit</div>
+</div>
+@*<div class="container mt-3">
+        <div class="content mt-4">
+            <div class="card card_button">
+                <div class="card-body shadow">
+                    <div class="stat-widget-one">
+                        <div class="stat-icon dib">
+                            <i class="ti-money text-success border-success">
+                            </i>
+                        </div>
+                        <div class="dib">
+                            <div class="stat-digit">1,012</div>
+                            <div class="stat-text">Total Profit</div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-</div>
+
+        <div class="content mt-4">
+            <div class="card card_button">
+                <div class="card-body shadow">
+                    <div class="stat-widget-one">
+                        <div class="stat-icon dib">
+                            <i class="ti-money text-success border-success">
+                            </i>
+                        </div>
+                        <div class="dib">
+                            <div class="stat-digit">1,012</div>
+                            <div class="stat-text">Total Profit</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>*@

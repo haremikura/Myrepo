@@ -13,6 +13,8 @@ using System.Diagnostics;
 using System.Linq;
 using Xunit;
 using XUnitTestProject2.Domain;
+using MVCFramework.Controllers;
+using System.Web.Mvc;
 
 namespace XUnitTestProject2
 {
@@ -33,75 +35,33 @@ namespace XUnitTestProject2
             Assert.True(answer);
         }
 
-        [Fact]
-        public void TestIsExist()
-        {
-            DatabaseTestClass databaseTestClass = new DatabaseTestClass();
-            databaseTestClass
-                .ShowSelectLog("SELECT * FROM ServiceUser WHERE Name = @Name AND @", 3);
-
-            Assert.True(databaseTestClass.DataLog.FileCount > 0);
-        }
 
         [Fact]
-        public void TestMoq()
-        {
-            //try
-            //{
+        //TODO:system.missingmethodexceptionの問題
+        //public void TestGenericType()
+        //{
+        //    List<IEntity> dataEntity = new List<IEntity>()
+        //            {
+        //                new ServiceUser {UserName = "テスト智之", Password = "1234" },
+        //                new ServiceUser {UserName = "tesuto", Password = "terahara" },
+        //            };
 
-            //}
-            //catch (Exception e)
-            //{
-            //    Debug.WriteLine(e.StackTrace);
-            //    Assert.False(true);
-            //}
+        //    var mockContext = new MockCreator(dataEntity).GetMockContext().Object;
+        //    var testController = new LoginController(mockContext);
+        //    testController.ModelState.AddModelError("SessionName", "Required");
+        //    TryLogin(new ServiceUser() { UserName = "テスト智之", Password = "1234" });
+        //    TryLogin(new ServiceUser() { UserName = "テスト朋美", Password = "7890" });
 
-            List<IEntity> dataEntity = new List<IEntity>()
-                    {
-                        new ServiceUser {UserName = "tesuto", Password = "terahara" },
-                        new ServiceUser {UserName = "tesuto", Password = "terahara" },
-                    };
+        //    Assert.True(true);
+        //    void TryLogin(ServiceUser serviceUser)
+        //    {
+        //        ActionResult Result = testController.Index(serviceUser);
 
-
-            var mockContext = new MockCreator(dataEntity).GetMockContext();
-            // DBContextにMockを設定
-
-            Debug.WriteLine("\r======");
-            foreach (var entityIndex in mockContext.Object.ServiceUser.ToList())
-            {
-                Debug.WriteLine($"{entityIndex.UserId} {entityIndex.UserName} {entityIndex.Password}");
-            }
-
-            Assert.True(mockContext.Object.ServiceUser.Count() == 2);
-
-        }
-        [Fact]
-        public void TestGenericType()
-        {
-            //var dataEntity = new List<ServiceUser>
-            //        {
-            //            new ServiceUser {UserName = "tesuto", Password = "terahara" },
-            //            new ServiceUser {UserName = "tesuto", Password = "terahara" },
-            //        }.AsQueryable();
-
-            //Type parameterType = dataEntity.GetType().GetGenericArguments()[0];
-
-            //Debug.WriteLine(parameterType);
-
-            //Type genericBaseType = typeof(IQueryable<>);
-            //Type genericType = genericBaseType.MakeGenericType(parameterType);
-            //IQueryable IQueryable = (IQueryable)Activator.CreateInstance(genericType);
-            //Debug.WriteLine(IQueryable.GetType());
+        //        Debug.WriteLine($"\r=======\r {Result.ToString()}");
+        //    }
 
 
-            //Type genericBaseType2 = typeof(DbSet<>);
-            //Type genericType2 = genericBaseType2.MakeGenericType(parameterType);
-            //Debug.WriteLine(genericType2.ToString());
-            //DbSet dbset = (DbSet)Activator.CreateInstance(genericType2);
-            //Debug.WriteLine(dbset.GetType());
-            //Assert.True(true);
 
-            //var mockMyEntity = new Mock<DbSet<ServiceUser>>();
-        }
+        //}
     }
 }

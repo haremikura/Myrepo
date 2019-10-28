@@ -1,5 +1,5 @@
-﻿using MVCFramework.Models.Entity;
-using  MVCFramework.Infrastracture.Repositries;
+﻿using MVCFramework.Infrastracture.Repositries;
+using MVCFramework.Models.Entity;
 using System;
 using System.Linq;
 using System.Security.Cryptography;
@@ -11,7 +11,6 @@ namespace MVCFramework.Models.Session
     {
         private string hashkey = "";
         private TextEditorContext _context;
-
         public const string SESSION_COOKIE = "markofcain";
 
         public string Hashkey
@@ -31,10 +30,13 @@ namespace MVCFramework.Models.Session
 
         public const string CollectionName = "Session";
 
-        public UserSession(TextEditorContext context)
+        public UserSession(IDbContext context)
         {
-            _context = context;
+            _context = (TextEditorContext)context;
         }
+
+
+
 
         /// <summary>
         /// ログインしているかの状態を返す

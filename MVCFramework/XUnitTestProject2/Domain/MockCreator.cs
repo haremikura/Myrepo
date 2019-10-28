@@ -26,7 +26,6 @@ namespace XUnitTestProject2.Domain
             switch (entity.GetType().ToString())
             {
                 case "MVCFramework.Models.Entity.ServiceUser":
-                    //user = ;
                     _mockMyEntityList = MockDbSet(mockEntityList.Select(x => new ServiceUser(x)).ToList());
                     _mockContext.Setup(m => m.ServiceUser).Returns((DbSet<ServiceUser>)_mockMyEntityList.Object);
                     break;

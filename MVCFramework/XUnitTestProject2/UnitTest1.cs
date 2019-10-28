@@ -1,11 +1,13 @@
 using MVCFramework.Models;
 using MVCFramework.Content.Content;using MVCFramework.Infrastracture.DBConnection;
-using  MVCFramework.Infrastracture.Repositries; 
- using MVCFramework.Models.Entity;
+using MVCFramework.Infrastracture.Repositries;
+using MVCFramework.Models.Entity;
 using System.Data.SqlClient;
 using System.Diagnostics;
 using Xunit;
 using XUnitTestProject2.Domain;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace XUnitTestProject2
 {
@@ -67,5 +69,42 @@ namespace XUnitTestProject2
 
             Assert.True(answer && !answer2);
         }
+
+
+        [Fact]
+        public void TestMoq()
+        {
+
+            List<IEntity> dataEntity = new List<IEntity>()
+                    {
+                        new ServiceUser {UserName = "tesuto", Password = "terahara" },
+                        new ServiceUser {UserName = "tesuto", Password = "terahara" },
+                    };
+
+
+            var mockContext = new MockCreator(dataEntity).GetMockContext();
+            // DBContext‚ÉMock‚ðÝ’è
+
+            Debug.WriteLine("\r======");
+            foreach (var entityIndex in mockContext.Object.ServiceUser.ToList())
+            {
+                Debug.WriteLine($"{entityIndex.UserId} {entityIndex.UserName} {entityIndex.Password}");
+            }
+
+            Assert.True(mockContext.Object.ServiceUser.Count() == 2);
+
+        }
+
+        [Fact]
+        public void TestIsExist()
+        {
+            DatabaseTestClass databaseTestClass = new DatabaseTestClass();
+            databaseTestClass
+                .ShowSelectLog("SELECT * FROM ServiceUser WHERE Name = @Name AND @", 3);
+
+            Assert.True(databaseTestClass.DataLog.FileCount > 0);
+        }
+
+
     }
 }

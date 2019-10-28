@@ -1,5 +1,6 @@
 ﻿using MVCFramework.Infrastracture.DBConnection;
 using MVCFramework.Infrastracture.Repositries;
+using System.Linq;
 using System.Web.Mvc;
 
 namespace MVCFramework.Controllers
@@ -18,7 +19,9 @@ namespace MVCFramework.Controllers
 
         public ActionResult Index()
         {
-            return View("~/Views/TextEditor/Index.cshtml");
+            var list = _context.TextFilesList.ToList();
+
+            return View("~/Views/TextEditor/Index.cshtml", list);
         }
     }
 }

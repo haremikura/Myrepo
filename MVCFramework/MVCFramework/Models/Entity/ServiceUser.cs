@@ -6,8 +6,10 @@ namespace MVCFramework.Models.Entity
     [Table("ServiceUser")]
     public partial class ServiceUser : IEntity
     {
+        public ServiceUser()
+        {
+        }
 
-        public ServiceUser() { }
         public ServiceUser(IEntity x)
         {
             ServiceUser serviceUser = (ServiceUser)x;
@@ -15,7 +17,6 @@ namespace MVCFramework.Models.Entity
             UserId = serviceUser.UserId;
             UserName = serviceUser.UserName;
             Password = serviceUser.Password;
-
         }
 
         [Key]

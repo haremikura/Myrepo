@@ -78,12 +78,19 @@
 1. 2019-10-27 21:42:27
     1. 問:ジェネリック間の型のキャスト変換がうまくいかない。
         1. 問題のコード
-        
             ```C#
                 public MockCreator(IList<IEntity> mockEntityList)
                 {
                     ...           
-                     _mockMyEntityList = MockDbSet((IList<ServiceUser>)mockEntityList.ToList());
+                     _mockMyEntityList = MockDbSet((IList<ServiceUser>)mockEntityList);
+                }
+
+                interface IEntity{}
+
+                class ServerUser : IEntity
+                {
+                    public int abc {get; set;}
+                    ...
                 }
 
                 private Mock<DbSet<T>> MockDbSet<T>(IEnumerable<T> list) where T : class, new()
@@ -93,7 +100,9 @@
      
             ```
         1. 表示されるエラー
-    1. 
+            1. 
+    1. 答え
+       1. パラメータに入る型のクラスのコンストラクタを、インターフェースを引数にとり、それを通じで、コンストラクタに、返還前のオブジェクトを
         ```C#
             public MockCreator(IList<IEntity> mockEntityList)
             {
@@ -102,4 +111,35 @@
             _mockMyEntityList = MockDbSet(mockEntityList.Select(x => new ServiceUser(x)).ToList());
                
             }
+
+            class ServerUser : IEntity
+            {
+                public ServiceUser(IEntity x){
+                    ServiceUser current = (IEntity)x;
+                    Abc = current.Abc;
+                    ...
+                }
+                public int Abc {get; set;}
+                ...
+            }
+
         ```
+        1. 参考
+            1. https://teratail.com/questions/157052
+1. 2019-10-28 20:49:19
+    1. 問:Controllerクラスのテスト中、System.MissingMethodExceptionが発生した
+        1. コードの例
+            ```C#
+                var mockContext = new MockCreator(dataEntity).GetMockContext().Object;
+                var testController = new LoginController(mockContext);
+                TryLogin(new ServiceUser() { UserName = "テスト智之", Password = "1234" });
+
+                Assert.True(true);
+                void TryLogin(ServiceUser serviceUser)
+                {
+                    ActionResult Result = testController.Index(serviceUser);
+                    //System.MissingMethodException : 'Method not found: 'System.Web.HttpSessionStateBase System.Web.Mvc.Controller.get_Session()'.'
+
+                    ...
+                }
+            ```
