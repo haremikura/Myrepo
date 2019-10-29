@@ -1,4 +1,4 @@
-# Log
+# エラー解決のログメモ
 
 ## 2019-10-22 20:36:43 : C#
 
@@ -49,7 +49,7 @@
             }
         ```
 1. 回答(解決,因果)
-    
+   
     1. 
 1. 考察
     1. このエラーは、初期化におけるエラーである。 
@@ -71,8 +71,9 @@
             at Moq.Mock`1.OnGetObject()
             at Moq.Mock`1.get_Object()
             at XUnitTestProject2.LoginTest.TestMoq() in C:\Users\TR\OneDrive\Program\C#File\MVCFrameworkFile\GitRepository\MVCFramework\XUnitTestProject2\LoginTest.cs:line 70
-    ```
-
+        ```
+```
+    
     1. このエラーは、「インターフェースIDBcontextを利用して、抽象化して、見せかけにしていない」のが原因のこと。
         1. 参考
             1. http://answers.flyppdevportal.com/MVC/Post/Thread/603748b9-1a4b-446c-8be6-1349bb854f4d?category=vsunittest
@@ -84,6 +85,7 @@
     1. 予想
         
         1. DbContext直接にMoqを含めると、別機能が発動して、やりにくい。よって、IDBContextのインターフェースを使って、別機能を発動させないように、
+    ```
 
 ## 2019-10-27 21:42:27
 
@@ -111,7 +113,7 @@
     
         ```
     1. 表示されるエラー
-        
+       
         1. 
 1. 答え
     1. パラメータに入る型のクラスのコンストラクタを、インターフェースを引数にとり、それを通じで、コンストラクタに、返還前のオブジェクトを
