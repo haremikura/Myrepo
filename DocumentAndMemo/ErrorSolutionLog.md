@@ -24,6 +24,7 @@
         ```
 
 ## 2019-10-22 20:55:10 : Razor
+
 1. 問：コンパイラ エラー CS1003
     1. ソースエラー
             public class _Page_Views_Login_LoginView_cshtml : System.Web.Mvc.WebViewPage<CoreMVC.Models.Entity.ServiceUser;> {
@@ -85,6 +86,7 @@
         1. DbContext直接にMoqを含めると、別機能が発動して、やりにくい。よって、IDBContextのインターフェースを使って、別機能を発動させないように、
 
 ## 2019-10-27 21:42:27
+
 1. 問:ジェネリック間の型のキャスト変換がうまくいかない。
     1. 問題のコード
         ```C#
