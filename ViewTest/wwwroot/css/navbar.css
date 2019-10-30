@@ -1,0 +1,20 @@
+.navbar-left>li {
+    padding: 10px 10px 10px 10px;
+    border-left: 1px solid rgba(20, 20, 20, 1)
+}
+
+.navbar-left>li:hover {
+    background-color: aqua;
+}
+
+.nav_selector {
+    padding: 0px 10px;
+}
+
+.nav_selection {
+    margin: 5px 5px;
+}
+
+.form-contena {
+    margin: 10px;
+}

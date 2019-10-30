@@ -1,0 +1,116 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>TextType</title>
+    <link rel="stylesheet" href="../wwwroot/lib/bootstrap/dist/css/bootstrap.css" />
+    <link rel="stylesheet" href="../wwwroot/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="../wwwroot/css/central.css" />
+    <link rel="stylesheet" href="../wwwroot/css/login.css" />
+    <link rel="stylesheet" href="../wwwroot/css/navbar.css" />
+    <link rel="stylesheet" href="../wwwroot/css/righPopup.css" />
+    <link rel="stylesheet" href="../wwwroot/css/sideDrawer.css" />
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-md navbar-light bg-light">
+        <a class="navbar-brand" href="#">Navbar</a>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="#" id="new_text">新規テキスト作成</a>
+                </li>
+                <li class="nav-item" id="mark_property">
+                    <div class="d-flex">
+                        <div class="btn themeColor_indigator"></div>
+                        <a class="nav-link" href="#" id="markcolor_theme">テーマの詳細</a>
+                    </div>
+                </li>
+            </ul>
+
+            <form class="form-inline ml-auto">
+                <div class="form-contena">
+                    <button class="btn btn-outline-success tr_collapse_left_margin" asp-controller="Home"
+                        asp-action="SelectText">
+                        ログアウト
+                    </button>
+                </div>
+            </form>
+
+
+        </div>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    </nav>
+
+    <div class="container">
+        <partial name="_CookieConsentPartial" />
+        <main role="main" class="pb-3">
+            <div class="container mt-5">
+
+                <div class="stat-widget-one stat-digit editablePlaceholder" contenteditable="true">
+
+                </div>
+            </div>
+
+
+    </div>
+    </main>
+    </div>
+
+    <div id="sidenav">
+        <div id="sidenav_body">
+            <div class="sidenav_body">
+                <div class="sidenav_name text-center">
+                    <h2>新規テキスト作成</h2>
+                </div>
+                <form class="form-signin">
+                    <div class="form-group ">
+                        <input type="text" class="form-control col-xs-2" id="password" name="password" value=""
+                            required="" title="名前">
+                    </div>
+                    <button type=" submit" class="btn btn-success btn-block">ログイン</button>
+                </form>
+            </div>
+        </div>
+        <div id="sidenav_overray"></div>
+
+
+        <div class="right-popup shadow rounded">
+            <ul class="list-group">
+                <li href="#" class="list-group-item list-group-item-action">
+                    <div class="d-flex align-items-center">
+                        <div class="btn themeColor_indigator"></div>
+                        <div class="ml-1">テーマの詳細</div>
+                    </div>
+                </li>
+
+                <li href="#" class="list-group-item list-group-item-action">
+                    <div class="d-flex align-items-center">
+                        <div class="btn themeColor_indigator"></div>
+                        <div class="ml-1">テーマの詳細</div>
+                    </div>
+                </li>
+
+            </ul>
+        </div>
+
+
+    </div>
+
+
+
+    <script src="../wwwroot/lib/jquery/dist/jquery.js"></script>
+    <script src="../wwwroot/lib/bootstrap/dist/js/bootstrap.bundle.js"></script>
+    <script src="../wwwroot/lib/jquery/dist/jquery.min.js"></script>
+    <script src="../wwwroot/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../wwwroot/js/site.js"></script>
+    <script src="../wwwroot/js/card.js"></script>
+    <script src="../wwwroot/js/sideDrawer.js"></script>
+    <script src="../wwwroot/js/markerSelect.js"></script>
+</body>
+
+</html>

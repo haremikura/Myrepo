@@ -1,0 +1,56 @@
+body {
+    font-family: "Lato", sans-serif;
+}
+
+.sidebar_cotent {
+    display: none;
+}
+
+#sidenav_overray {
+    /* background-color: none; */
+    background-color: rgba(0, 0, 0, 0.5);
+    position: fixed;
+    visibility: hidden;
+    top: 0px;
+    right: 0px;
+    height: 100%;
+    width: 100%;
+    z-index: 1;
+}
+
+.sidenav_body {
+    height: 100%;
+    width: 300px;
+    position: fixed;
+    z-index: 2;
+    top: 0px;
+    right: -300px;
+    background-color: white;
+    /* background-color: rgb(189, 230, 176); */
+    overflow-x: hidden;
+    transition: 0.2s;
+}
+
+.sidenav_body .closebtn {
+    position: absolute;
+    top: 0px;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+}
+
+.sidenav_name {
+    padding: 30px 0px;
+}
+
+.editablePlaceholder:focus {
+    outline: none;
+}
+
+.grup_small {
+    margin: 0px 25px 10px 25px;
+}
+
+.form-signin {
+    padding: 0px 25px;
+}

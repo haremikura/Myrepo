@@ -1,7 +1,7 @@
 ﻿<nav class="navbar navbar-expand-md navbar-light bg-light">
     <a class="navbar-brand" href="#">Navbar</a>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav">
+        <ul class="navbar-nav nr-left">
             <li class="nav-item">
                 <div class="d-flex nav_selector" href="#" id="new_text">
                     <div class="nav_selection">新規テキスト作成</div>
@@ -14,15 +14,18 @@
                 </div>
             </li>
         </ul>
-        <p class="col-form-label">@Session["UserName"]</p>
-        <form class=" form-inline ml-auto">
-            <div class="form-contena">
-                <button class="btn btn-outline-success tr_collapse_left_margin" asp-controller="Home"
-                        asp-action="SelectText">
-                    ログアウト
-                </button>
-            </div>
-        </form>
+        <ui class="navbar-nav">
+            <p class="col-form-label">@Session["UserName"]</p>
+            <form class="form-inline ml-auto">
+                <div class="form-contena">
+                    <button class="btn btn-outline-success tr_collapse_left_margin" asp-controller="Home"
+                            asp-action="SelectText">
+                        ログアウト
+                    </button>
+                </div>
+            </form>
+        </ui>
+       
     </div>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">

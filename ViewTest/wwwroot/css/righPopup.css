@@ -1,0 +1,8 @@
+.right-popup {
+    width: 200px;
+    position: fixed;
+    z-index: 2;
+    top: 0px;
+    left: 0px;
+    visibility: hidden;
+}
