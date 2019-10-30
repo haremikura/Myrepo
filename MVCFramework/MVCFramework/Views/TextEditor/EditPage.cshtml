@@ -1,9 +1,11 @@
-﻿@{
-    ViewData["Title"] = "DataPage";
+﻿@model string
+@{
+    ViewData["Title"] = "EditPage";
 }
 <div>
     <div class="container mt-5">
         <div class="stat-widget-one stat-digit editablePlaceholder" contenteditable="true">
+            @Model
         </div>
     </div>
 

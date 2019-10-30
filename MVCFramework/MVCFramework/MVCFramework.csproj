@@ -135,10 +135,11 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Entity\EditText.cs" />
     <Compile Include="Models\Session\AuthorizationFilterAttribute.cs" />
     <Compile Include="Infrastracture\DBConnection\CrudContext.cs" />
     <Compile Include="Infrastracture\DBConnection\DbConnection.cs" />
-    <Compile Include="Infrastracture\Content\DBEnum.cs" />
+    <Compile Include="Infrastracture\Costance\DBEnum.cs" />
     <Compile Include="Infrastracture\DBConnection\DBProperty.cs" />
     <Compile Include="Infrastracture\DBConnection\InsertPraseHolderRepository.cs" />
     <Compile Include="Infrastracture\Repositories\ReaderRepository.cs" />
@@ -148,9 +149,8 @@
     <Compile Include="Models\Entity\CurrentSession.cs" />
     <Compile Include="Models\Entity\Marker.cs" />
     <Compile Include="Models\Entity\MarkingLog.cs" />
-    <Compile Include="Models\Entity\TextEditorContext.cs" />
+    <Compile Include="Infrastracture\Repositories\TextEditorContext.cs" />
     <Compile Include="Models\Entity\ServiceUser.cs" />
-    <Compile Include="Models\Entity\TextFile.cs" />
     <Compile Include="Models\Entity\TextFilesList.cs" />
     <Compile Include="Models\ErrorViewModel.cs" />
     <Compile Include="Models\SessionCentral.cs" />
@@ -204,7 +204,7 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\TextEditor\ColorIndex.cshtml" />
-    <Content Include="Views\TextEditor\DataPage.cshtml" />
+    <Content Include="Views\TextEditor\EditPage.cshtml" />
     <Content Include="Views\TextEditor\Index.cshtml" />
     <Content Include="Views\Pertail\_Navbar.cshtml" />
     <Content Include="Views\Pertail\_SideDrawer.cshtml" />

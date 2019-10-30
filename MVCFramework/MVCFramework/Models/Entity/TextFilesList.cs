@@ -27,7 +27,6 @@ namespace MVCFramework.Models.Entity
         [Column(Order = 3)]
         public DateTime Update { get; set; }
 
-        [Column(TypeName = "ntext")]
-        public string Text { get; set; }
+
     }
 }

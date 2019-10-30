@@ -10,5 +10,6 @@ namespace MVCFramework.Infrastracture.Repositries
         DbSet<MarkingLog> MarkingLog { get; set; }
         DbSet<ServiceUser> ServiceUser { get; set; }
         DbSet<TextFilesList> TextFilesList { get; set; }
+        DbSet<EditText> EditText { get; set; }
     }
 }

@@ -15,6 +15,7 @@ namespace MVCFramework.Infrastracture.Repositries
         public virtual DbSet<MarkingLog> MarkingLog { get; set; }
         public virtual DbSet<ServiceUser> ServiceUser { get; set; }
         public virtual DbSet<TextFilesList> TextFilesList { get; set; }
+        public virtual DbSet<EditText> EditText { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

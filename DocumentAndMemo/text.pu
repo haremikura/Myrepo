@@ -1,4 +1,4 @@
-@startuml
+@startuml testFileDatabase
 entity User {
     UserID
     Name
@@ -10,7 +10,6 @@ entity TextFilesList {
     FileName
     UserID
     Update
-    Text
 }
 
 entity Marker{
@@ -26,8 +25,13 @@ entity MarkingLog{
   HeadIndex
   Lenght  
 }
+entity EditText{
+  FileID
+  Text
+  }
 
 TextFilesList ||--ri--o{ User
 TextFilesList ||-le-|| MarkingLog
+TextFilesList ||-do-|{ Text
 MarkingLog }o-le-|| Marker
 @enduml
