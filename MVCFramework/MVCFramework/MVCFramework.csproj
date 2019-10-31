@@ -167,7 +167,6 @@
     <Content Include="wwwroot\css\card.css" />
     <Content Include="wwwroot\css\central.css" />
     <Content Include="wwwroot\css\sideDrawer.css" />
-    <Content Include="wwwroot\css\site.css" />
     <Content Include="wwwroot\css\navbar.css" />
     <Content Include="wwwroot\favicon.ico" />
     <Content Include="wwwroot\js\headerHidden.js" />

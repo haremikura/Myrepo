@@ -29,6 +29,10 @@ namespace XUnitTestProject2.Domain
                     _mockMyEntityList = MockDbSet(mockEntityList.Select(x => new ServiceUser(x)).ToList());
                     _mockContext.Setup(m => m.ServiceUser).Returns((DbSet<ServiceUser>)_mockMyEntityList.Object);
                     break;
+                case "MVCFramework.Models.Entity.TextFilesList":
+                    _mockMyEntityList = MockDbSet(mockEntityList.Select(x => new TextFilesList(x)).ToList());
+                    _mockContext.Setup(m => m.TextFilesList).Returns((DbSet<TextFilesList>)_mockMyEntityList.Object);
+                    break;
                 default:
                     throw new Exception("Cannot crateMock");
             }

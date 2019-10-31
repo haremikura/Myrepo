@@ -6,8 +6,17 @@ namespace MVCFramework.Models.Entity
 {
 
     [Table("TextFilesList")]
-    public partial class TextFilesList : IEntity
+    public class TextFilesList : IEntity
     {
+        public TextFilesList() { }
+        public TextFilesList(IEntity entity)
+        {
+            TextFilesList setEntity = (TextFilesList)entity;
+            FileId = setEntity.FileId;
+            UserId = setEntity.UserId;
+            Update = setEntity.Update;
+        }
+
         [Key]
         [Column(Order = 0)]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]

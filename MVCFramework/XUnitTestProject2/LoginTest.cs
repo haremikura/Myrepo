@@ -36,7 +36,7 @@ namespace XUnitTestProject2
         }
 
 
-        [Fact]
+        // [Fact]
         //TODO:system.missingmethodexceptionの問題
         //public void TestGenericType()
         //{
@@ -63,5 +63,6 @@ namespace XUnitTestProject2
 
 
         //}
+
     }
 }

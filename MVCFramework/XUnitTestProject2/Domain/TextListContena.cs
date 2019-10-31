@@ -38,8 +38,8 @@ namespace XUnitTestProject2
 
             return new List<TextFilesList>
                     {
-                        new TextFilesList() {FileId = 100, FileName="bellsystem" ,Text="123abc会いう"},
-                        new TextFilesList() {FileId = 101, FileName="yamatoHotel",Text="123abc会いう" }
+                        new TextFilesList() {FileId = 100, FileName="bellsystem" },
+                        new TextFilesList() {FileId = 101, FileName="yamatoHotel" }
                     };
         }
 

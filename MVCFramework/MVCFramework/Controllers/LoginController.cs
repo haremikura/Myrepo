@@ -2,6 +2,7 @@
 using MVCFramework.Infrastracture.Repositries;
 using MVCFramework.Models.Entity;
 using MVCFramework.Models.Session;
+using System.Linq;
 using System.Web.Mvc;
 
 namespace MVCFramework.Controllers
@@ -37,6 +38,8 @@ namespace MVCFramework.Controllers
             if (isAuthorized)
             {
                 Session["UserName"] = user.UserName;
+                Session["UserId"] = user.UserId;
+                Session["FileId"] = _context.TextFilesList.Max(index => index.FileId);
             }
 
             return isAuthorized ? new TextEditorController().Index() : View("~/Views/Login/LoginView.cshtml");
