@@ -74,12 +74,3 @@ body {
   border: 2px solid rgba(0, 0, 0, 1);
   margin: auto 10px auto 0px;
 }
-
-.card {
-  border: none;
-}
-
-.btn-outline-dark:hover, .btn-outline-dark:active, .btn-outline-dark:focus, .btn-outline-dark:not(:disabled):not(.disabled):active {
-  background: white;
-  color: black;
-}

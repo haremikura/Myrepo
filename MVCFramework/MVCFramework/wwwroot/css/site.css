@@ -57,12 +57,3 @@ body {
     height: 60px;
     line-height: 60px; /* Vertically center the text there */
 }
-/**/
-.card {
-    border: none;
-}
-
-.btn-outline-dark:hover, .btn-outline-dark:active, .btn-outline-dark:focus, .btn-outline-dark:not(:disabled):not(.disabled):active {
-    background: white;
-    color: black;
-}

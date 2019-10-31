@@ -27,7 +27,7 @@ namespace MVCFramework.Controllers
         public ActionResult EditPage(int number)
         {
             string text = _context.EditText.Find(number).Text;
-            return View("", text);
+            return View("~/Views/TextEditor/EditPage.cshtml", text);
         }
     }
 }

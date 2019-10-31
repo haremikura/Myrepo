@@ -1,29 +1,76 @@
-.central_ontena {
-    /* 省略可 */
-    margin: 0;
-    padding: 0;
-    positiion: relative;
-    min-width: 600px;
-    /*中央配置するボックスの横幅*/
-    min-height: 400px;
+/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
+for details on configuring this project to bundle and minify static web assets. */
+
+a.navbar-brand {
+    white-space: normal;
+    text-align: center;
+    word-break: break-all;
 }
 
-#hoge {
-    margin: -200px 0 0 -300px;
-    /*縦横半分をネガティブマージンでずらす*/
+/* Sticky footer styles
+-------------------------------------------------- */
+
+html {
+    font-size: 14px;
+}
+
+@media (min-width: 768px) {
+    html {
+        font-size: 16px;
+    }
+}
+
+.border-top {
+    border-top: 1px solid #e5e5e5;
+}
+
+.border-bottom {
+    border-bottom: 1px solid #e5e5e5;
+}
+
+.box-shadow {
+    box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+}
+
+button.accept-policy {
+    font-size: 1rem;
+    line-height: inherit;
+}
+
+/* Sticky footer styles
+-------------------------------------------------- */
+
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+body {
+    /* Margin bottom by footer height */
+    margin-bottom: 60px;
+}
+
+.footer {
     position: absolute;
-    /*body要素に対して絶対配置*/
-    top: 50%;
-    /*上端を中央に*/
-    left: 50%;
-    /*左端を中央に*/
-    width: 600px;
-    /*横幅*/
-    height: 400px;
-    /*縦幅*/
+    bottom: 0;
+    width: 100%;
+    white-space: nowrap;
+    /* Set the fixed height of the footer here */
+    height: 60px;
+    line-height: 60px;
+    /* Vertically center the text there */
 }
 
-.login_contena {
-    padding: 10px;
-    height: 100%;
+/* ??
+-------------------------------------------------- */
+
+.themeColor_container {
+    margin: 0px 30px;
+}
+
+.themeColor_indigator {
+    width: 33px;
+    height: 33px;
+    border: 2px solid rgba(0, 0, 0, 1);
+    margin: auto 10px auto 0px;
 }

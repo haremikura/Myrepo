@@ -8,20 +8,21 @@
         foreach (var index in Model)
         {
             <div class="content mt-4">
-                <div class="card card_button" @*data-action="@Url.Action("EditPage", "TextEditor")"*@>
-                    @Html.Hidden("number", 1)
+                <div class="card card_button" >
                     <button class="card-body shadow btn-outline-dark">
-                        <div class="stat-widget-one">
-                            <div class="stat-icon dib">
-                                <i class="ti-money text-success border-success">
-                                </i>
+                        <div class="file_info d-flex">
+                            <div class="file_icon">
+                                <div class="ti-money text-success border-success">
+
+                                </div>
                             </div>
-                            <div class="dib">
-                                <div class="stat-digit">@index.FileName</div>
-                                <div class="stat-text">@index.Update</div>
+                            <div class="file_message">
+                                <div class="file_name">@index.FileName</div>
+                                <div class="file_date">@index.Update</div>
                             </div>
                         </div>
                     </button>
+                    @Html.Hidden("number", @index.FileId)
                 </div>
             </div>
         }
