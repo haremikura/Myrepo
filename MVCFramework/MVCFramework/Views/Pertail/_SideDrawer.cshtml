@@ -5,17 +5,15 @@
             <div class="sidenav_name text-center">
                 <h2>新規テキスト作成</h2>
             </div>
-            @using (Ajax.BeginForm("CrateFile", new AjaxOptions { HttpMethod = "POST" }))
-            {
-                <div class="sidebar_cotent" name="new_text">
-                    <form class="form-signin">
-                        <div class="form-group ">
-                            @Html.TextBox("file_Name", new { @class = "form-control col-xs-2" })
-                        </div>
-                        <button type="submit" class="btn btn-success btn-block">ログイン</button>
-                    </form>
-                </div>
-            }
+
+            <div class="sidebar_cotent" name="new_text">
+                <form class="form-signin">
+                    <div class="form-group ">
+                        @Html.TextBox("file_Name", "", new { @class = "form-control col-xs-2", id = "file_crate_text_button" })
+                    </div>
+                    <button class="btn btn-success btn-block" onclick="createFileName()">新規作成</button>
+                </form>
+            </div>
 
 
             <div class="sidebar_cotent" name="markcolor_theme">

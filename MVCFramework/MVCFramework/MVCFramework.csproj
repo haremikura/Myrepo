@@ -136,6 +136,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Entity\EditText.cs" />
+    <Compile Include="Models\PartailView.cs" />
     <Compile Include="Models\Session\AuthorizationFilterAttribute.cs" />
     <Compile Include="Infrastracture\DBConnection\CrudContext.cs" />
     <Compile Include="Infrastracture\DBConnection\DbConnection.cs" />
@@ -173,6 +174,8 @@
     <Content Include="wwwroot\js\markerSelect.js" />
     <Content Include="wwwroot\js\card.js" />
     <Content Include="wwwroot\js\sideDrawer.js" />
+    <Content Include="wwwroot\js\try.js" />
+    <Content Include="wwwroot\js\view.js" />
     <Content Include="wwwroot\lib\bootstrap\dist\css\bootstrap-grid.css" />
     <Content Include="wwwroot\lib\bootstrap\dist\css\bootstrap-grid.min.css" />
     <Content Include="wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.css" />

@@ -1,5 +1,6 @@
 ﻿using MVCFramework.Infrastracture.DBConnection;
 using MVCFramework.Infrastracture.Repositries;
+using MVCFramework.Models;
 using MVCFramework.Models.Entity;
 using System;
 using System.Linq;
@@ -31,7 +32,7 @@ namespace MVCFramework.Controllers
             string text = _context.EditText.Find(number).Text;
             return View("~/Views/TextEditor/EditPage.cshtml", text);
         }
-        public PartialViewResult CrateFile(string fileName)
+        public MvcHtmlString CrateFile(string fileName)
         {
             int newFileId = Convert.ToInt32(Session["FileId"]) + 1;
             Session["FileId"] = newFileId;
@@ -52,7 +53,7 @@ namespace MVCFramework.Controllers
             _context.TextFilesList.Add(textFilesList);
             _context.EditText.Add(editText);
 
-            return null;
+            return MvcHtmlString.Create(new PartailView().GetButton(textFilesList));
         }
     }
 }

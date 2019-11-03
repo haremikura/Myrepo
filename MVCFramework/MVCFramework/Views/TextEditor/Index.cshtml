@@ -5,10 +5,11 @@
 <div class="container mt-3">
     @using (@Html.BeginForm("EditPage", "TextEditor"))
     {
+        <div id="new_file"></div>
         foreach (var index in Model)
         {
             <div class="content mt-4">
-                <div class="card card_button" >
+                <div class="card card_button">
                     <button class="card-body shadow btn-outline-dark">
                         <div class="file_info d-flex">
                             <div class="file_icon">
