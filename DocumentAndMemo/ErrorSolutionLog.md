@@ -85,7 +85,7 @@
     1. 予想
         
         1. DbContext直接にMoqを含めると、別機能が発動して、やりにくい。よって、IDBContextのインターフェースを使って、別機能を発動させないように、
-    ```
+```
 
 ## 2019-10-27 21:42:27
 
@@ -158,3 +158,58 @@
                 ...
             }
         ```
+	    
+	1. 回答
+	
+	    1. ` var mockSession = new Mock<HttpSessionStateBase>(); mockControllerContext.Setup(m => m.HttpContext.Session).Returns(mockSession.Object);`を追加する。
+	
+	    1. コード
+	
+	        ```C#
+	            var mockContext = new MockCreator(dataEntity).GetMockContext().Object;
+	            var testController = new LoginController(mockContext);
+	            TryLogin(new ServiceUser() { UserName = "テスト智之", Password = "1234"  });
+	        
+	            var mockSession = new Mock<HttpSessionStateBase>(); 
+	            mockControllerContext
+	                    .Setup(m => m.HttpContext.Session).Returns(mockSession.Object);`
+	        
+	            Assert.True(true);
+	            void TryLogin(ServiceUser serviceUser)
+	            {
+	                ActionResult Result = testController.Index(serviceUser);
+	                
+	                ...
+	            }
+	        ```
+	
+	        
+	
+	    1. 上記のモックを、System.Web.HttpSessionStateBase.Sessionに対応する。
+	
+	    1. また、相性のせいで、上記テストをMsTestにした。
+	
+	    1. 参考
+	
+	        1.  https://dontpaniclabs.com/blog/post/2011/03/22/testing-session-in-mvc-in-four-lines-of-code/ 
+	
+	    
+	
+## 2019-11-05 22:16
+
+1. 問:xunitにて、以下が発生した
+   1. 型または名前空間の名前 'HttpSessionStateBase' が名前空間 'System.Web' に存在しません (アセンブリ参照があることを確認してください)。
+
+##　2019-11-06 20:00
+
+1. 課題
+
+   1. controllerにあるUserSessionのコンストラクタで、型の違いによるエラー
+   2. 
+   3. 「System.InvalidCastException: 型 'Castle.Proxies.IDbContextProxy' のオブジェクトを型 'MVCFramework.Infrastracture.Repositries.TextEditorContext' にキャストできません。」
+
+2. 解決
+
+   1. 要約：
+
+   

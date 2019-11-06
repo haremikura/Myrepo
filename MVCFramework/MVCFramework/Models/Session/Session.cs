@@ -12,7 +12,7 @@ namespace MVCFramework.Models.Session
         private string hashkey = "";
         private TextEditorContext _context;
         public const string SESSION_COOKIE = "markofcain";
-
+        private ServiceUser serviceUser;
         public string Hashkey
         {
             set { hashkey = value; }
@@ -112,13 +112,14 @@ namespace MVCFramework.Models.Session
         {
             Console.WriteLine(checkUser.UserName);
             var UserIsExist
-                = _context.ServiceUser.Any(
+                = _context.ServiceUser.FirstOrDefault(
                     index => index.UserName.Equals(checkUser.UserName)
                           && index.Password.Equals(checkUser.Password)
                           );
 
-            if (UserIsExist) // ユーザが登録されていない場合
+            if (UserIsExist != null) // ユーザが登録されていない場合
             {
+                serviceUser = UserIsExist;
                 return CanLogin(checkUser);//, cookies
             }
             else // ユーザが登録されていた場合
@@ -150,6 +151,9 @@ namespace MVCFramework.Models.Session
                     CreatedAt = DateTime.Now
                 });
             _context.SaveChanges();
+
+
+
             // cookieにsecure属性を付与
             //var cookieOption = new CookieOptions()
             //{
@@ -160,5 +164,8 @@ namespace MVCFramework.Models.Session
             return true;
             //  }
         }
+
+        public ServiceUser GetLoginUser() => serviceUser;
+
     }
 }

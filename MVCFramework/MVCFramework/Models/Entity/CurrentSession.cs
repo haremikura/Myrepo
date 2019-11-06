@@ -7,6 +7,18 @@ namespace MVCFramework.Models.Entity
     [Table("CurrentSession")]
     public partial class CurrentSession : IEntity
     {
+
+
+        public CurrentSession()
+        {
+        }
+
+        public CurrentSession(CurrentSession x)
+        {
+            Id = x.Id;
+            CreatedAt = x.CreatedAt;
+        }
+
         [Key]
         [Column(Order = 0, TypeName = "ntext")]
         public string Id { get; set; }

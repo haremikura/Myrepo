@@ -31,5 +31,10 @@ namespace MVCFramework.Infrastracture.Repositries
                 .Property(e => e.Color)
                 .IsFixedLength();
         }
+
+        void IDbContext.SaveChanges()
+        {
+            SaveChanges();
+        }
     }
 }

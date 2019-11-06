@@ -33,16 +33,20 @@ namespace MVCFramework.Controllers
 
         public ActionResult Index(ServiceUser user)
         {
-            bool isAuthorized = new UserSession(_context).Login(user);
+            var usesession = new UserSession(_context);
+            bool isAuthorized = usesession.Login(user);
 
             if (isAuthorized)
             {
-                Session["UserName"] = user.UserName;
-                Session["UserId"] = user.UserId;
-                Session["FileId"] = _context.TextFilesList.Max(index => index.FileId);
+                var loginUser = usesession.GetLoginUser();
+                Session["UserName"] = loginUser.UserName;
+                Session["UserId"] = loginUser.UserId;
+                Session["MaxFileId"] = _context.TextFilesList.Max(index => index.FileId);
             }
 
-            return isAuthorized ? new TextEditorController().Index() : View("~/Views/Login/LoginView.cshtml");
+            return isAuthorized ? View("~/Views/TextEditor/Index.cshtml") : View("~/Views/Login/LoginView.cshtml");
+
+            //return isAuthorized ? new TextEditorController().Index() : View("~/Views/Login/LoginView.cshtml");
         }
     }
 }

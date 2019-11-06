@@ -3,6 +3,7 @@ using MVCFramework.Infrastracture.Repositries;
 using MVCFramework.Models;
 using MVCFramework.Models.Entity;
 using System;
+using System.Data.Entity;
 using System.Linq;
 using System.Web.Mvc;
 
@@ -35,7 +36,7 @@ namespace MVCFramework.Controllers
         public MvcHtmlString CrateFile(string fileName)
         {
             int newFileId = Convert.ToInt32(Session["FileId"]) + 1;
-            Session["FileId"] = newFileId;
+            Session["MaxFileId"] = newFileId;
             TextFilesList textFilesList = new TextFilesList()
             {
                 FileId = newFileId,
@@ -52,7 +53,7 @@ namespace MVCFramework.Controllers
 
             _context.TextFilesList.Add(textFilesList);
             _context.EditText.Add(editText);
-
+            //_context.SaveChanges();
             return MvcHtmlString.Create(new PartailView().GetButton(textFilesList));
         }
     }
