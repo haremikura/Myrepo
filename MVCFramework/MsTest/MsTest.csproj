@@ -99,6 +99,7 @@
     <Compile Include="Domain\TestMoqCreator.cs" />
     <Compile Include="Domain\TextListContena.cs" />
     <Compile Include="ControllerTest.cs" />
+    <Compile Include="Domain\ViewEntity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

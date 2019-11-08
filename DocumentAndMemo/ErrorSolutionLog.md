@@ -213,3 +213,10 @@
    1. 要約：
 
    
+## 2019-11-06 23:43:31
+1. 問:あるクラスのMockで、以下のえらーが発生した
+    1. System.NotSupportedException: Unsupported expression: m => m.ServiceUser
+    Non-overridable members (here: TextEditorContext.get_ServiceUser) may not be used in setup / verification expressions.
+1. 解決
+    1. そのクラスのメソッドが、virtualをつけていなかったから
+    1. https://qiita.com/TsuyoshiUshio@github/items/ae3c2c155e904b348638

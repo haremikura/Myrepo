@@ -15,10 +15,11 @@ namespace MVCFramework.Controllers
     public class TextEditorController : Controller
     {
         private readonly IDbContext _context = new TextEditorContext();
-        private readonly DbCruder _dbCruder;
+        // private readonly DbCruder _dbCruder;
 
-        public TextEditorController()
+        public TextEditorController(IDbContext mockDbContext)
         {
+            _context = mockDbContext;
         }
 
         public ActionResult Index()
@@ -53,7 +54,7 @@ namespace MVCFramework.Controllers
 
             _context.TextFilesList.Add(textFilesList);
             _context.EditText.Add(editText);
-            //_context.SaveChanges();
+            _context.SaveChanges();
             return MvcHtmlString.Create(new PartailView().GetButton(textFilesList));
         }
     }
