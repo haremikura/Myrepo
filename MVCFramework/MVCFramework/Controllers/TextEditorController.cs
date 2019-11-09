@@ -22,6 +22,10 @@ namespace MVCFramework.Controllers
             _context = mockDbContext;
         }
 
+        public TextEditorController()
+        {
+        }
+
         public ActionResult Index()
         {
             var list = _context.TextFilesList.ToList();
@@ -31,12 +35,12 @@ namespace MVCFramework.Controllers
 
         public ActionResult EditPage(int number)
         {
-            string text = _context.EditText.Find(number).Text;
+            object text = _context.EditText.Find(number).Text;
             return View("~/Views/TextEditor/EditPage.cshtml", text);
         }
         public MvcHtmlString CrateFile(string fileName)
         {
-            int newFileId = Convert.ToInt32(Session["FileId"]) + 1;
+            int newFileId = Convert.ToInt32(Session["MaxFileId"]) + 1;
             Session["MaxFileId"] = newFileId;
             TextFilesList textFilesList = new TextFilesList()
             {

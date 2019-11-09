@@ -25,7 +25,8 @@ namespace MVCFramework.Models
                             </div>
                         </div>
                     </button>
-                    @Html.Hidden(""number"", {textFilesList.FileId})
+                    <input id=""number"" name=""number"" type=""hidden"" value=""{textFilesList.FileId}"">
+                   
                 </div>
             </div>";
         }

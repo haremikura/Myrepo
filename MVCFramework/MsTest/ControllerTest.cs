@@ -98,7 +98,7 @@ namespace MsTest
                 string Before2
                     = ViewEntity.WriteEntityData(mockDbContext.EditText.ToList());
 
-                Debug.WriteLine($"Check Data \r {Before1} \r {Before2}");
+                Debug.WriteLine($"Check Data　Before :\r {Before1} \r {Before2}");
 
                 var result = textEditorControlelr.CrateFile(fileName);
 
@@ -108,7 +108,7 @@ namespace MsTest
                 string After2
                     = ViewEntity.WriteEntityData(mockDbContext.EditText.ToList());
 
-                Debug.WriteLine($"Check Data \r {After1} \r {After2}");
+                Debug.WriteLine($"Check Data After : \r {After1} \r {After2}");
 
                 Debug.WriteLine($"\r=======\r {result.ToHtmlString()}");
 

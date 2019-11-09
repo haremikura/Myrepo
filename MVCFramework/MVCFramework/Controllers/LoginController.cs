@@ -44,9 +44,9 @@ namespace MVCFramework.Controllers
                 Session["MaxFileId"] = _context.TextFilesList.Max(index => index.FileId);
             }
 
-            return isAuthorized ? View("~/Views/TextEditor/Index.cshtml") : View("~/Views/Login/LoginView.cshtml");
+            //return isAuthorized ? View("~/Views/TextEditor/Index.cshtml") : View("~/Views/Login/LoginView.cshtml");
 
-            //return isAuthorized ? new TextEditorController().Index() : View("~/Views/Login/LoginView.cshtml");
+            return isAuthorized ? new TextEditorController().Index() : View("~/Views/Login/LoginView.cshtml");
         }
     }
 }
