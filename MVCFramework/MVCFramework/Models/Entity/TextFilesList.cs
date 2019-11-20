@@ -4,11 +4,13 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MVCFramework.Models.Entity
 {
-
     [Table("TextFilesList")]
     public class TextFilesList : IEntity
     {
-        public TextFilesList() { }
+        public TextFilesList()
+        {
+        }
+
         public TextFilesList(IEntity entity)
         {
             TextFilesList setEntity = (TextFilesList)entity;
@@ -35,7 +37,5 @@ namespace MVCFramework.Models.Entity
         [Key]
         [Column(Order = 3)]
         public DateTime Update { get; set; }
-
-
     }
 }

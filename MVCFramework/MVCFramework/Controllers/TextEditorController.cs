@@ -1,10 +1,10 @@
-﻿using MVCFramework.Infrastracture.DBConnection;
-using MVCFramework.Infrastracture.Repositries;
+﻿using MVCFramework.Infrastracture.Repositries;
 using MVCFramework.Models;
+using MVCFramework.Models.DataTransferObject;
 using MVCFramework.Models.Entity;
 using System;
-using System.Data.Entity;
 using System.Linq;
+using System.Web;
 using System.Web.Mvc;
 
 namespace MVCFramework.Controllers
@@ -26,22 +26,41 @@ namespace MVCFramework.Controllers
         {
         }
 
+
+        [NoCache]
         public ActionResult Index()
         {
-            var list = _context.TextFilesList.ToList();
+            var list = _context
+                        .TextFilesList
+                        .OrderByDescending(index => index.Update)
+                        .ToList();
 
             return View("~/Views/TextEditor/Index.cshtml", list);
         }
 
         public ActionResult EditPage(int number)
         {
-            object text = _context.EditText.Find(number).Text;
-            return View("~/Views/TextEditor/EditPage.cshtml", text);
+            int abc = int.Parse(Session["UserId"].ToString());
+            EditPageDto Editpage = new EditPageDto()
+            {
+                EditText = _context.EditText.Find(number).Text,
+                MarkerList
+                    = _context.Marker.Where(
+                        index => index.UserId.Equals(abc)).ToArray(),
+            };
+
+            return View("~/Views/TextEditor/EditPage.cshtml", Editpage);
         }
+
         public MvcHtmlString CrateFile(string fileName)
         {
+            //Response.Cache.SetCacheability(HttpCacheability.NoCache);
+            //Response.Cache.SetNoStore();
+            //Response.Cache.SetExpires(DateTime.MinValue);
+
             int newFileId = Convert.ToInt32(Session["MaxFileId"]) + 1;
             Session["MaxFileId"] = newFileId;
+
             TextFilesList textFilesList = new TextFilesList()
             {
                 FileId = newFileId,
@@ -60,6 +79,17 @@ namespace MVCFramework.Controllers
             _context.EditText.Add(editText);
             _context.SaveChanges();
             return MvcHtmlString.Create(new PartailView().GetButton(textFilesList));
+
+  
+        }
+
+        public MvcHtmlString CrateFileView(string htmlElement, string markText, string colorCode)
+        {
+            return MvcHtmlString.Create(
+              new PartailView().GetColor(htmlElement, markText, colorCode)
+                );
         }
     }
+
+ 
 }

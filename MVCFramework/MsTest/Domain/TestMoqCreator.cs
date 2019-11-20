@@ -1,21 +1,9 @@
-﻿using Moq;
-using MVCFramework.Models.Entity;
-using  MVCFramework.Infrastracture.Repositries;
-using System;
-using System.Collections.Generic;
-using System.Data.Entity;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Text;
-
-namespace XUnitTestProject2.Domain
+﻿namespace XUnitTestProject2.Domain
 {
-    class TestMoqCreator
+    internal class TestMoqCreator
     {
         //public TextEditorContext GetArticleDbContextByEF(List<IEntity> list)
         //{
-
-
         //    var dataEntity = list.AsQueryable();
         //    // DbSetのMock
         //    var mockMyEntity = new Mock<DbSet<IEntity>>();
@@ -43,7 +31,6 @@ namespace XUnitTestProject2.Domain
 
         //private Expression<Action<TextEditorContext>> Change(Type CurrentType)
         //{
-
         //    switch (CurrentType.ToString())
         //    {
         //        case "ServiceUser":

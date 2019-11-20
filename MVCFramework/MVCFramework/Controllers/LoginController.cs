@@ -33,7 +33,8 @@ namespace MVCFramework.Controllers
 
         public ActionResult Index(ServiceUser user)
         {
-            var usesession = new UserSession(_context);
+
+            var usesession = new UserSession();
             bool isAuthorized = usesession.Login(user);
 
             if (isAuthorized)

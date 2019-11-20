@@ -27,12 +27,12 @@
                 <h1 id="profile-name" class="profile-name-card text-center">ログイン</h1>
                 @using (@Html.BeginForm("Index", "Login"))
                 {
-                    <div class="form-signin">
+                <div class="form-signin">
 
-                        @Html.TextBoxFor(model => model.UserName, new { @class = "form-control mb-2", name = "UserName", placeholder = "Username" })
-                        @Html.PasswordFor(model => model.Password, new { @class = "form-control mb-2", name = "Password", placeholder = "Password" })
-                        <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit">Sign in</button>
-                    </div>
+                    @Html.TextBoxFor(model => model.UserName, new { @class = "form-control mb-2", name = "UserName", placeholder = "Username" })
+                    @Html.PasswordFor(model => model.Password, new { @class = "form-control mb-2", name = "Password", placeholder = "Password" })
+                    <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit">Sign in</button>
+                </div>
                 }
             </div>
         </div>

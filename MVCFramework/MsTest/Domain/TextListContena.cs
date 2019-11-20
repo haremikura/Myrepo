@@ -1,9 +1,4 @@
-﻿using MVCFramework.Content.Content;using MVCFramework.Infrastracture.DBConnection;
-
-using MVCFramework.Infrastracture.Repositries;
-using MVCFramework.Models.Entity;
-
-using MVCFramework.Models;
+﻿using MVCFramework.Content.Content;using MVCFramework.Models.Entity;
 using System.Collections.Generic;
 
 namespace XUnitTestProject2
@@ -34,9 +29,7 @@ namespace XUnitTestProject2
         }
 
         private IEnumerable<IEntity> GetTextFilesListList()
-        {
-
-            return new List<TextFilesList>
+        {            return new List<TextFilesList>
                     {
                         new TextFilesList() {FileId = 100, FileName="bellsystem" },
                         new TextFilesList() {FileId = 101, FileName="yamatoHotel" }

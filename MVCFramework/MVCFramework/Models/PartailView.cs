@@ -1,8 +1,4 @@
 ﻿using MVCFramework.Models.Entity;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
 namespace MVCFramework.Models
 {
@@ -26,9 +22,17 @@ namespace MVCFramework.Models
                         </div>
                     </button>
                     <input id=""number"" name=""number"" type=""hidden"" value=""{textFilesList.FileId}"">
-                   
+
                 </div>
             </div>";
+        }
+
+        internal string GetColor(string htmlElement, string markText, string colorCode)
+        {
+            return htmlElement.Replace(
+                markText,
+                $@"<span style=""background: linear-gradient(transparent 0%, {colorCode} 0%);"">{markText}<span>"
+                );
         }
     }
 }

@@ -1,8 +1,4 @@
-﻿$(function () {
-    $(".js_focus").focus();
-})
-
-global = {
+﻿global = {
     value: {},
     setValue: function (name, value) {
         this.value[name] = value;
@@ -11,3 +7,7 @@ global = {
         return this.value[name];
     }
 }
+
+$(function () {
+    $(".js_focus").focus();
+})

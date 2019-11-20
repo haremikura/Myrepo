@@ -92,6 +92,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DBContext.cs" />
     <Compile Include="Domain\Database\TextDbName.cs" />
     <Compile Include="Domain\DebugPrint.cs" />
     <Compile Include="Domain\MockCreator.cs" />

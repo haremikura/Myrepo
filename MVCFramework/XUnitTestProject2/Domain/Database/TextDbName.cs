@@ -1,8 +1,7 @@
-﻿using  MVCFramework.Infrastracture.Repositries;
+﻿using MVCFramework.Content.Content;
 using MVCFramework.Models.Entity;
 using System;
 using System.Collections.Generic;
-using MVCFramework.Content.Content;
 
 namespace MVCFramework.Infrastracture.DBConnection
 

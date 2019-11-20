@@ -1,8 +1,8 @@
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
 namespace MVCFramework.Models.Entity
 {
-    using System.ComponentModel.DataAnnotations;
-    using System.ComponentModel.DataAnnotations.Schema;
-
     [Table("Marker")]
     public partial class Marker : IEntity
     {
@@ -13,11 +13,16 @@ namespace MVCFramework.Models.Entity
 
         [Key]
         [Column(Order = 1)]
+        // [StringLength(20)]
+        public int UserId { get; set; }
+
+        [Key]
+        [Column(Order = 2)]
         [StringLength(20)]
         public string Name { get; set; }
 
         [Key]
-        [Column(Order = 2)]
+        [Column(Order = 3)]
         [StringLength(10)]
         public string Color { get; set; }
     }

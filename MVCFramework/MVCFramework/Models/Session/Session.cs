@@ -13,6 +13,7 @@ namespace MVCFramework.Models.Session
         private TextEditorContext _context;
         public const string SESSION_COOKIE = "markofcain";
         private ServiceUser serviceUser;
+
         public string Hashkey
         {
             set { hashkey = value; }
@@ -30,29 +31,31 @@ namespace MVCFramework.Models.Session
 
         public const string CollectionName = "Session";
 
+        public UserSession()
+        {
+            _context = new TextEditorContext();
+        }
+
         public UserSession(IDbContext context)
         {
             _context = (TextEditorContext)context;
         }
-
-
-
 
         /// <summary>
         /// ログインしているかの状態を返す
         /// </summary>
         /// <param name="token">セッショントークン</param>
         /// <returns>bool</returns>
-        public bool IsAuthorized(string token)
-        {
-            if (token == null)
-            {
-                return false;
-            }
-            var sessionManager = _context.CurrentSession.Find(token);
-            var isLogin = (sessionManager == null) ? false : true;
-            return isLogin;
-        }
+        //public bool IsAuthorized(string token)
+        //{
+        //    if (token == null)
+        //    {
+        //        return false;
+        //    }
+        //    var sessionManager = _context.CurrentSession.Find(token);
+        //    var isLogin = (sessionManager == null) ? false : true;
+        //    return isLogin;
+        //}
 
         /// <summary>
         /// ランダムトークンを取得
@@ -110,12 +113,12 @@ namespace MVCFramework.Models.Session
         /// <returns>ログインの成否</returns>
         public bool Login(ServiceUser checkUser)//, IResponseCookies cookies
         {
-            Console.WriteLine(checkUser.UserName);
-            var UserIsExist
-                = _context.ServiceUser.FirstOrDefault(
-                    index => index.UserName.Equals(checkUser.UserName)
-                          && index.Password.Equals(checkUser.Password)
-                          );
+            var array = _context.ServiceUser;
+
+            var UserIsExist = array.SingleOrDefault(
+                index => index.UserName == checkUser.UserName
+                      && index.Password == checkUser.Password
+                      );
 
             if (UserIsExist != null) // ユーザが登録されていない場合
             {
@@ -144,15 +147,13 @@ namespace MVCFramework.Models.Session
             //{
             var token = GetToken();
 
-            _context.CurrentSession.Add(
-                new CurrentSession
-                {
-                    Id = token,
-                    CreatedAt = DateTime.Now
-                });
-            _context.SaveChanges();
-
-
+            //_context.CurrentSession.Add(
+            //    new CurrentSession
+            //    {
+            //        Id = token,
+            //        CreatedAt = DateTime.Now
+            //    });
+            //_context.SaveChanges();
 
             // cookieにsecure属性を付与
             //var cookieOption = new CookieOptions()
@@ -166,6 +167,5 @@ namespace MVCFramework.Models.Session
         }
 
         public ServiceUser GetLoginUser() => serviceUser;
-
     }
 }

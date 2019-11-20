@@ -7,8 +7,6 @@ namespace MVCFramework.Models.Entity
     [Table("CurrentSession")]
     public partial class CurrentSession : IEntity
     {
-
-
         public CurrentSession()
         {
         }
@@ -19,11 +17,10 @@ namespace MVCFramework.Models.Entity
             CreatedAt = x.CreatedAt;
         }
 
-        [Key]
         [Column(Order = 0, TypeName = "ntext")]
         public string Id { get; set; }
 
-        [Key]
+
         [Column(Order = 1)]
         public DateTime CreatedAt { get; set; }
     }

@@ -10,7 +10,7 @@ namespace MVCFramework.Infrastracture.Repositries
             Configuration.LazyLoadingEnabled = false;
         }
 
-        public virtual DbSet<CurrentSession> CurrentSession { get; set; }
+        //public virtual DbSet<CurrentSession> CurrentSession { get; set; }
         public virtual DbSet<Marker> Marker { get; set; }
         public virtual DbSet<MarkingLog> MarkingLog { get; set; }
         public virtual DbSet<ServiceUser> ServiceUser { get; set; }

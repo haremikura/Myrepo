@@ -1,13 +1,10 @@
-using MVCFramework.Models;
-using MVCFramework.Content.Content;using MVCFramework.Infrastracture.DBConnection;
-using MVCFramework.Infrastracture.Repositries;
-using MVCFramework.Models.Entity;
+using MVCFramework.Content.Content;using MVCFramework.Infrastracture.DBConnection;using MVCFramework.Models.Entity;
+using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Diagnostics;
+using System.Linq;
 using Xunit;
 using XUnitTestProject2.Domain;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace XUnitTestProject2
 {
@@ -68,21 +65,13 @@ namespace XUnitTestProject2
             bool answer2 = databaseTestClass.ShowExeculteLog(config, tryEntity2);
 
             Assert.True(answer && !answer2);
-        }
-
-
-        [Fact]
+        }        [Fact]
         public void TestMoq()
-        {
-
-            List<IEntity> dataEntity = new List<IEntity>()
+        {            List<IEntity> dataEntity = new List<IEntity>()
                     {
                         new ServiceUser {UserName = "tesuto", Password = "terahara" },
                         new ServiceUser {UserName = "tesuto", Password = "terahara" },
-                    };
-
-
-            var mockContext = new MockCreator(dataEntity).GetMockContext();
+                    };            var mockContext = new MockCreator(dataEntity).GetMockContext();
             // DBContext‚ÉMock‚ðÝ’è
 
             Debug.WriteLine("\r======");
@@ -91,9 +80,7 @@ namespace XUnitTestProject2
                 Debug.WriteLine($"{entityIndex.UserId} {entityIndex.UserName} {entityIndex.Password}");
             }
 
-            Assert.True(mockContext.Object.ServiceUser.Count() == 2);
-
-        }
+            Assert.True(mockContext.Object.ServiceUser.Count() == 2);        }
 
         [Fact]
         public void TestIsExist()
@@ -103,8 +90,5 @@ namespace XUnitTestProject2
                 .ShowSelectLog("SELECT * FROM ServiceUser WHERE Name = @Name AND @", 3);
 
             Assert.True(databaseTestClass.DataLog.FileCount > 0);
-        }
-
-
-    }
+        }    }
 }

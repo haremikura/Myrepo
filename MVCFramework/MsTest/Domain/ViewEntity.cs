@@ -1,9 +1,7 @@
 ﻿using MVCFramework.Models.Entity;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace MsTest.Domain
 {
@@ -30,7 +28,5 @@ namespace MsTest.Domain
         {
             return string.Join("\r", list.Select(x => WriteEntityData(x)));
         }
-
-
     }
 }

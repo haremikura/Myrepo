@@ -10,17 +10,18 @@
 }
 
 .navbar-left > li {
-    padding: 10px 10px 10px 10px;
     border-left: 1px solid rgba(20, 20, 20, 1)
 }
+
+    .navbar-left > li:hover {
+        background-color: #cedace;
+    }
+
 
 .form-contena {
     margin: 10px;
 }
 
-.navbar-left > li:hover {
-    background-color: aqua;
-}
 
 .form-signin {
     padding: 0px 25px;

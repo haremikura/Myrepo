@@ -1,5 +1,5 @@
-﻿using MVCFramework.Content.Content;using MVCFramework.Models.Entity;
-using  MVCFramework.Infrastracture.Repositries;
+﻿using MVCFramework.Content.Content;using MVCFramework.Infrastracture.Repositries;
+using MVCFramework.Models.Entity;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -69,11 +69,7 @@ namespace XUnitTestProject2
             //var options
             //    = new DbContextOptionsBuilder<TextEditorDbContext>();
 
-
             var dbContext = new TextEditorContext();
             return dbContext;
-        }
-
-       
-    }
+        }    }
 }

@@ -1,10 +1,11 @@
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
 namespace MVCFramework.Models.Entity
 {
-    using System.ComponentModel.DataAnnotations;
-    using System.ComponentModel.DataAnnotations.Schema;
 
     [Table("ServiceUser")]
-    public partial class ServiceUser : IEntity
+    public class ServiceUser : IEntity
     {
         public ServiceUser()
         {

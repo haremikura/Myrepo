@@ -131,10 +131,12 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\NoCacheAttribute.cs" />
     <Compile Include="Controllers\TextEditorController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\DataTransferObject\EditPageDto.cs" />
     <Compile Include="Models\Entity\EditText.cs" />
     <Compile Include="Models\PartailView.cs" />
     <Compile Include="Models\Session\AuthorizationFilterAttribute.cs" />
@@ -156,6 +158,9 @@
     <Compile Include="Models\ErrorViewModel.cs" />
     <Compile Include="Models\SessionCentral.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Views\TextEditor\Index.cshtml.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Data\Database1.mdf" />
@@ -170,6 +175,7 @@
     <Content Include="wwwroot\css\sideDrawer.css" />
     <Content Include="wwwroot\css\navbar.css" />
     <Content Include="wwwroot\favicon.ico" />
+    <Content Include="wwwroot\js\global.js" />
     <Content Include="wwwroot\js\headerHidden.js" />
     <Content Include="wwwroot\js\markerSelect.js" />
     <Content Include="wwwroot\js\card.js" />
@@ -233,6 +239,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <None Include="packages.config" />
+    <Content Include="Views\Pertail\_RigthPopup.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

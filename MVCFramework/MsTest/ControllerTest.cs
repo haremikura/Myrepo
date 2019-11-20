@@ -4,8 +4,10 @@ using MsTest.Domain;
 using MVCFramework.Controllers;
 using MVCFramework.Infrastracture.Repositries;
 using MVCFramework.Models.Entity;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -21,7 +23,7 @@ namespace MsTest
         private IDbContext mockDbContext;
 
         [TestMethod]
-        public void TestMethod1()
+        public void LoginTest()
         {
             List<IEntity> dataEntity = new List<IEntity>()
                     {
@@ -80,7 +82,6 @@ namespace MsTest
             SetMockController();
             DebugAndGetViewResult("TestName");
 
-
             IDbContext CreateMock()
             {
                 var mock = new MockCreator();
@@ -91,7 +92,6 @@ namespace MsTest
 
             MvcHtmlString DebugAndGetViewResult(string fileName)
             {
-
                 string Before1
                     = ViewEntity.WriteEntityData(mockDbContext.TextFilesList.ToList());
 
@@ -115,7 +115,6 @@ namespace MsTest
                 return result;
             }
 
-
             void SetMockSession()
             {
                 mockControllerContext.Setup(x => x.HttpContext.Session["FileId"]).Returns("1");
@@ -129,6 +128,73 @@ namespace MsTest
                 textEditorControlelr.ControllerContext = mockControllerContext.Object;
                 textEditorControlelr.ModelState.AddModelError("SessionName", "Required");
             }
+        }
+
+        [TestMethod]
+        public void IndexTest()
+        {
+            mockDbContext = CreateMock();
+            textEditorControlelr = new TextEditorController(mockDbContext);
+
+            var mockControllerContext = new Mock<ControllerContext>();
+
+            SetMockController();
+            TestAndDebug();
+
+            IDbContext CreateMock()
+            {
+                var list = new List<IEntity>()
+                    {
+                        new TextFilesList { FileId = 1, FileName = "testFileList", UserId = 1 ,Update =  DateTime.Parse("2018/05/01 12:34:56")},
+                         new TextFilesList { FileId = 2, FileName = "testFileList", UserId = 1 ,Update =  DateTime.Parse("2018/05/01 12:37:56")},
+                        new TextFilesList { FileId = 4, FileName = "testFileList", UserId = 2, Update =  DateTime.Parse("2019/06/01 12:34:56")}
+                    };
+
+                var mock = new MockCreator(list);
+
+                return mock.GetMockContext().Object;
+            }
+
+            void TestAndDebug()
+            {
+                string Before1
+                    = ViewEntity.WriteEntityData(
+                        mockDbContext.TextFilesList.ToList()
+                        );
+
+                Debug.WriteLine($"Before List :\r {Before1}");
+
+                ViewResult result = textEditorControlelr.Index() as ViewResult;
+
+                string After1
+                   = ViewEntity.WriteEntityData(
+                       (IEnumerable<IEntity>)result.Model
+                       );
+                Debug.WriteLine($"After View :\r {After1}");
+            }
+
+            void SetMockController()
+            {
+                //mockControllerContext.Setup(m => m.HttpContext.Session).Returns(mockSession.Object);
+                textEditorControlelr.ControllerContext = mockControllerContext.Object;
+                textEditorControlelr.ModelState.AddModelError("SessionName", "Required");
+            }
+        }
+
+        [TestMethod]
+        public void CreateMarkerElemenbtTest()
+        {
+            textEditorControlelr
+                = new TextEditorController();
+
+            string resutlView
+                = textEditorControlelr.CrateFileView(
+                       "asdfkkjffff",
+                        "kkjff",
+                       "#bbccdd"
+                    ).ToString();
+
+            File.AppendAllText(@"C:\Users\TR\OneDrive\Program\C#File\MVCFrameworkFile\GitRepository\MVCFramework\MsTest\Test.txt", resutlView);
         }
     }
 }
