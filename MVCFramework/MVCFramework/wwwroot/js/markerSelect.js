@@ -1,34 +1,30 @@
 //文章を選択したのアクション
 $(document).click(function (event) {
     //入力した文章の要素を取得する
-    getSelectText(event);
-    //マーカーを選ぶポップアップを表示する
-    viewRightPoput(event);
 
-    function getSelectText() {
-        global.setValue('currentText', $(event.target)[0]);
+    //マーカーを選ぶポップアップを表示する
+
+    if ($(event.target).closest('.container').length) {
+
+        if (window.getSelection) {
+
+            var selectedStr = window.getSelection().toString();
+            getSelectText(event);
+
+            if (selectedStr.length > 0) {
+                visibleRightPoput(event);
+                markCurrentEiemet(event, true);
+            } else if (selectedStr.length == 0) {
+                hiddenRightPoput();
+            }
+        }
+    } else {
+        hiddenRightPoput();
     }
 
-    function viewRightPoput(event) {
-        if ($(event.target).closest('.container').length) {
-            var selectedStr;
-            if (window.getSelection) {
-                selectedStr
-                    = window.getSelection().toString();
-                global.setValue('selectStr', selectedStr);
 
-                console.log(selectedStr.length + " " + selectedStr)
-
-                if (selectedStr.length > 0) {
-                    visibleRightPoput(event);
-                } else if (selectedStr.length == 0) {
-                    hiddenRightPoput();
-                }
-            }
-        } else {
-            hiddenRightPoput();
-            console.log('内側がクリックされました。');
-        }
+    function getSelectText() {
+        global.setValue('selectStr', selectedStr);
     }
 
     function visibleRightPoput(event) {
@@ -45,10 +41,36 @@ $(document).click(function (event) {
 });
 
 //マーカーを引く
-$(".js_selectColor").click(function () {
-    console.log(
-        getMarkText(
-            global.getValue('selectStr'),
-            global.getValue('currentText'),
-            ""));
+$('.js_markText').children('li').click(function () {
+
+    var cha
+        = getAjaxText(
+            "MarkText",
+            "TextEditor",
+            {
+                elementText: $('.currentSelect').text(),
+                markedText: global.getValue('selectStr'),
+                caretPosition: global.getValue('caretPosition'),
+                colorCode: $(this).find('.themeColor_indigator').css('background-color'),
+            });
+
+    $('.currentSelect').text('').html(cha)
+    markCurrentEiemet(event, false);
 })
+
+function markCurrentEiemet(event, isMark) {
+    if (isMark) {
+        $(event.target).addClass('currentSelect');
+    } else {
+        $('.currentSelect').removeClass('currentSelect');
+    }
+
+}
+
+function getCaretPosition() {
+    var sel = document.getSelection();
+    sel.modify("extend", "backward", "paragraphboundary");
+    var pos = sel.toString().length;
+    if (sel.anchorNode != undefined) sel.collapseToEnd();
+    global.setValue('caretPosition', pos);
+}

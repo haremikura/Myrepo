@@ -3,6 +3,7 @@ using Moq;
 using MsTest.Domain;
 using MVCFramework.Controllers;
 using MVCFramework.Infrastracture.Repositries;
+using MVCFramework.Models.DataTransferObject;
 using MVCFramework.Models.Entity;
 using System;
 using System.Collections.Generic;
@@ -196,5 +197,74 @@ namespace MsTest
 
             File.AppendAllText(@"C:\Users\TR\OneDrive\Program\C#File\MVCFrameworkFile\GitRepository\MVCFramework\MsTest\Test.txt", resutlView);
         }
+
+        [TestMethod]
+        public void EditPageTest()
+        {
+            mockDbContext = CreateMock();
+            textEditorControlelr = new TextEditorController(mockDbContext);
+
+            var mockControllerContext = new Mock<ControllerContext>();
+
+            SetMockSession();
+            SetMockController();
+            TestAndDebug();
+
+            IDbContext CreateMock()
+            {
+                var fileList = new List<IEntity>()
+                    {
+                        new EditText { FileId = 1, Text = "testFileList",},
+                         new EditText { FileId = 2, Text = "testFileList2",},
+                    };
+
+                var markerList = new List<IEntity>()
+                    {
+                        new Marker() { MarkerId = 1, Name = "color1", UserId = 1 ,Color="#998877",DisplayOrder=1},
+                        new Marker (){ MarkerId = 1, Name = "color2", UserId = 1 ,Color="#998877",DisplayOrder=2},
+                        new Marker() { MarkerId = 2, Name = "color3", UserId = 2 ,Color="#665544",DisplayOrder=2},
+
+                    };
+
+                var mock = new MockCreator(fileList);
+                mock.SetMock(markerList);
+                return mock.GetMockContext().Object;
+            }
+
+            void TestAndDebug()
+            {
+                string Before1
+                  = ViewEntity.WriteEntityData(
+                      mockDbContext.Marker.ToArray()
+                      );
+                Debug.WriteLine($"Before List :\r {Before1}");
+
+                int UserId = 1;
+
+                ViewResult result = textEditorControlelr.EditPage(UserId) as ViewResult;
+
+                EditPageDto editPageDto = (EditPageDto)result.Model;
+
+                string After1
+                   = ViewEntity.WriteEntityData(
+                       editPageDto.MarkerList
+                       );
+
+                Debug.WriteLine($"After View :\r {After1}");
+            }
+
+            void SetMockSession()
+            {
+                mockControllerContext.Setup(x => x.HttpContext.Session["UserId"]).Returns("1");
+            }
+
+            void SetMockController()
+            {
+
+                textEditorControlelr.ControllerContext = mockControllerContext.Object;
+                textEditorControlelr.ModelState.AddModelError("SessionName", "Required");
+            }
+        }
+
     }
 }

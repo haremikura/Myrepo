@@ -1,10 +1,10 @@
 ﻿@model IEnumerable<MVCFramework.Models.Entity.Marker>
 
 <div class="right-popup shadow rounded">
-    <ul class="list-group">
+    <ul class="list-group js_markText">
         @foreach (var index in Model)
         {
-            <li href="#" class="list-group-item list-group-item-action">
+            <li class="list-group-item list-group-item-action">
                 <div class="d-flex align-items-center">
                     <div class="rounded themeColor_indigator" style="background: @index.Color;"></div>
                     <div class="ml-1">@index.Name</div>

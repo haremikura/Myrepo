@@ -1,1 +1,15 @@
 広い画面を使うので、ドロップダウンではなく、左モーダルドロアにした。
+
+マークのコードの、多重対策のパターンメモ
+    1.テスト
+        １．いろはに<span style="background:#aabbcc;">ほへとちり</span>ぬるを
+    1. ケース
+        1. ちり</span>ぬる
+            1．</span><span>を先導につなげる。
+            1. いろはに<span style="background:#aabbcc;">ほへと</span><span>ちり</span>ぬるを"
+        1. はに<span style="background:#aabbcc;">ほへ
+            1. 
+            1.いろ<span style="background:#eee;">はにほへ</span><span style="background:#aabbcc;">とちり</span>ぬるを
+
+
+

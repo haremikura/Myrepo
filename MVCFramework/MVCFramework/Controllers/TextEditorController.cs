@@ -15,7 +15,7 @@ namespace MVCFramework.Controllers
     public class TextEditorController : Controller
     {
         private readonly IDbContext _context = new TextEditorContext();
-        // private readonly DbCruder _dbCruder;
+        //private readonly DbCruder _dbCruder;
 
         public TextEditorController(IDbContext mockDbContext)
         {
@@ -40,23 +40,24 @@ namespace MVCFramework.Controllers
 
         public ActionResult EditPage(int number)
         {
-            int abc = int.Parse(Session["UserId"].ToString());
-            EditPageDto Editpage = new EditPageDto()
+            int currentUserId = int.Parse(Session["UserId"].ToString());
+            EditPageDto eidtPageDto = new EditPageDto()
             {
-                EditText = _context.EditText.Find(number).Text,
-                MarkerList
-                    = _context.Marker.Where(
-                        index => index.UserId.Equals(abc)).ToArray(),
+                EditText = _context.EditText
+                            .SingleOrDefault(index => index.FileId.Equals(number))
+                            .Text,
+                MarkerList = _context.Marker
+                            .Where(index => index.UserId.Equals(currentUserId))
+                            .OrderBy(index => index.DisplayOrder)
+                            .ToArray(),
             };
 
-            return View("~/Views/TextEditor/EditPage.cshtml", Editpage);
+            return View("~/Views/TextEditor/EditPage.cshtml", eidtPageDto);
         }
 
         public MvcHtmlString CrateFile(string fileName)
         {
-            //Response.Cache.SetCacheability(HttpCacheability.NoCache);
-            //Response.Cache.SetNoStore();
-            //Response.Cache.SetExpires(DateTime.MinValue);
+
 
             int newFileId = Convert.ToInt32(Session["MaxFileId"]) + 1;
             Session["MaxFileId"] = newFileId;
@@ -80,7 +81,7 @@ namespace MVCFramework.Controllers
             _context.SaveChanges();
             return MvcHtmlString.Create(new PartailView().GetButton(textFilesList));
 
-  
+
         }
 
         public MvcHtmlString CrateFileView(string htmlElement, string markText, string colorCode)
@@ -89,7 +90,14 @@ namespace MVCFramework.Controllers
               new PartailView().GetColor(htmlElement, markText, colorCode)
                 );
         }
+
+        public MvcHtmlString MarkText(string elementText, string markedText, int caretPosition, string colorCode)
+        {
+            return MvcHtmlString.Create(
+              new PartailView().GetMarkerText(elementText, markedText, caretPosition, colorCode)
+                );
+        }
     }
 
- 
+
 }

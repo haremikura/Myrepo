@@ -1,4 +1,7 @@
 ﻿using MVCFramework.Models.Entity;
+using System;
+using System.Text;
+using System.Text.RegularExpressions;
 
 namespace MVCFramework.Models
 {
@@ -33,6 +36,47 @@ namespace MVCFramework.Models
                 markText,
                 $@"<span style=""background: linear-gradient(transparent 0%, {colorCode} 0%);"">{markText}<span>"
                 );
+        }
+
+        public string GetMarkerText(string elementText, string markedText, int caretPosition, string colorcode)
+        {
+
+
+
+            if (markedText.Contains("</span>"))
+            {
+                var updateText = new StringBuilder(elementText);
+                string fixMarkText = markedText.Replace("</span>", "");
+                string markerCodeText = $@"</span><span style=""background:{colorcode}; "">{fixMarkText}</span>";
+                return updateText.Replace(markedText, markerCodeText, caretPosition, markedText.Length).ToString();
+
+            }
+            else if (markedText.Contains("<span"))
+            {
+                var updateText = new StringBuilder(elementText);
+                var before = Regex.Match(markedText, "<span.*>").Value;
+                string fixMarkText = markedText.Replace(before, "");
+                string markerCodeText = $@"<span style=""background:{colorcode}; "">{fixMarkText}</span>{before}";
+
+                return updateText.Replace(markedText, markerCodeText, caretPosition, markedText.Length).ToString();
+            }
+            else
+            {
+                string makrTextCode
+                    = $@"<span style=""background:{colorcode}; "">{markedText}</span>";
+                var sb = new StringBuilder(elementText);
+                string fixElementText
+                    = sb.Replace(
+                            markedText,
+                            makrTextCode,
+                            caretPosition,
+                            markedText.Length)
+                        .ToString();
+                return fixElementText;
+
+            }
+
+
         }
     }
 }

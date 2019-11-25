@@ -41,14 +41,21 @@ namespace XUnitTestProject2.Domain
             switch (entityName)
             {
                 case "MVCFramework.Models.Entity.ServiceUser":
-                    _mockSettiongList = MockDbSet(mockEntityList.Select(x => new ServiceUser(x)).ToList());
-
+                    _mockSettiongList = MockDbSet(mockEntityList.Select(x => x as ServiceUser).ToArray());
                     _mockContext.Setup(m => m.ServiceUser).Returns((DbSet<ServiceUser>)_mockSettiongList.Object);
                     break;
 
                 case "MVCFramework.Models.Entity.TextFilesList":
-                    _mockSettiongList = MockDbSet(mockEntityList.Select(x => new TextFilesList(x)).ToList());
+                    _mockSettiongList = MockDbSet(mockEntityList.Select(x => x as TextFilesList).ToArray());
                     _mockContext.Setup(m => m.TextFilesList).Returns((DbSet<TextFilesList>)_mockSettiongList.Object);
+                    break;
+                case "MVCFramework.Models.Entity.Marker":
+                    _mockSettiongList = MockDbSet(mockEntityList.Select(x => x as Marker).ToArray());
+                    _mockContext.Setup(m => m.Marker).Returns((DbSet<Marker>)_mockSettiongList.Object);
+                    break;
+                case "MVCFramework.Models.Entity.EditText":
+                    _mockSettiongList = MockDbSet(mockEntityList.Select(x => x as EditText).ToArray());
+                    _mockContext.Setup(m => m.EditText).Returns((DbSet<EditText>)_mockSettiongList.Object);
                     break;
 
                 default:

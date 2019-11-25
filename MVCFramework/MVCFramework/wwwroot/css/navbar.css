@@ -22,18 +22,8 @@
     margin: 10px;
 }
 
-
 .form-signin {
     padding: 0px 25px;
-}
-
-.right-popup {
-    width: 200px;
-    position: fixed;
-    z-index: 2;
-    top: 0px;
-    left: 0px;
-    visibility: hidden;
 }
 
 .sidebar_cotent {
