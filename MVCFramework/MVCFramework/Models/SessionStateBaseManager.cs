@@ -1,0 +1,28 @@
+﻿using System.Web;
+using System.Web.Mvc;
+
+namespace MVCFramework.Models
+
+{
+    public enum SessionBaseName
+    {
+        abc,
+        UserName,
+        UserId,
+        MaxFileId
+    }
+    public static class HttpSessionStateManager
+    {
+
+        public static void SetVaue(SessionBaseName baseName, object value)
+        {
+            HttpContext.Current.Session[baseName.ToString()] = value.ToString();
+        }
+        public static string GetValue(SessionBaseName baseName)
+        {
+            return HttpContext.Current.Session[baseName.ToString()].ToString();
+        }
+
+
+    }
+}

@@ -1,5 +1,6 @@
 ﻿using MVCFramework.Infrastracture.DBConnection;
 using MVCFramework.Infrastracture.Repositries;
+using MVCFramework.Models;
 using MVCFramework.Models.Entity;
 using MVCFramework.Models.Session;
 using System.Linq;
@@ -40,9 +41,9 @@ namespace MVCFramework.Controllers
             if (isAuthorized)
             {
                 var loginUser = usesession.GetLoginUser();
-                Session["UserName"] = loginUser.UserName;
-                Session["UserId"] = loginUser.UserId;
-                Session["MaxFileId"] = _context.TextFilesList.Max(index => index.FileId);
+                HttpSessionStateManager.SetVaue(SessionBaseName.UserName, loginUser.UserName);
+                HttpSessionStateManager.SetVaue(SessionBaseName.UserId, loginUser.UserId);
+                HttpSessionStateManager.SetVaue(SessionBaseName.MaxFileId, _context.TextFilesList.Max(index => index.FileId));
             }
 
             //return isAuthorized ? View("~/Views/TextEditor/Index.cshtml") : View("~/Views/Login/LoginView.cshtml");

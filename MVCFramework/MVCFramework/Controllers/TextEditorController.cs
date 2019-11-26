@@ -40,7 +40,7 @@ namespace MVCFramework.Controllers
 
         public ActionResult EditPage(int number)
         {
-            int currentUserId = int.Parse(Session["UserId"].ToString());
+            int currentUserId = int.Parse(HttpSessionStateManager.GetValue(SessionBaseName.UserId).ToString());
             EditPageDto eidtPageDto = new EditPageDto()
             {
                 EditText = _context.EditText
@@ -59,15 +59,15 @@ namespace MVCFramework.Controllers
         {
 
 
-            int newFileId = Convert.ToInt32(Session["MaxFileId"]) + 1;
-            Session["MaxFileId"] = newFileId;
+            int newFileId = Convert.ToInt32(HttpSessionStateManager.GetValue(SessionBaseName.MaxFileId)) + 1;
+            HttpSessionStateManager.SetVaue(SessionBaseName.MaxFileId, newFileId);
 
             TextFilesList textFilesList = new TextFilesList()
             {
                 FileId = newFileId,
                 FileName = fileName,
                 Update = DateTime.Now,
-                UserId = Convert.ToInt32(Session["UserId"]),
+                UserId = Convert.ToInt32(HttpSessionStateManager.GetValue(SessionBaseName.UserId)),
             };
 
             EditText editText = new EditText()
@@ -84,6 +84,11 @@ namespace MVCFramework.Controllers
 
         }
 
+        public void GetView(string text)
+        {
+
+        }
+
         public MvcHtmlString CrateFileView(string htmlElement, string markText, string colorCode)
         {
             return MvcHtmlString.Create(
@@ -91,12 +96,14 @@ namespace MVCFramework.Controllers
                 );
         }
 
-        public MvcHtmlString MarkText(string elementText, string markedText, int caretPosition, string colorCode)
+        public MvcHtmlString GetMarkText(string elementText, string markedText, int caretPosition, string colorCode)
         {
             return MvcHtmlString.Create(
               new PartailView().GetMarkerText(elementText, markedText, caretPosition, colorCode)
                 );
         }
+
+
     }
 
 

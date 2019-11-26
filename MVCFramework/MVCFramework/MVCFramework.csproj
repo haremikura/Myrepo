@@ -156,7 +156,7 @@
     <Compile Include="Models\Entity\ServiceUser.cs" />
     <Compile Include="Models\Entity\TextFilesList.cs" />
     <Compile Include="Models\ErrorViewModel.cs" />
-    <Compile Include="Models\SessionCentral.cs" />
+    <Compile Include="Models\SessionStateBaseManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Views\TextEditor\Index.cshtml.cs">
       <SubType>ASPXCodeBehind</SubType>
@@ -181,7 +181,7 @@
     <Content Include="wwwroot\js\markerSelect.js" />
     <Content Include="wwwroot\js\card.js" />
     <Content Include="wwwroot\js\sideDrawer.js" />
-    <Content Include="wwwroot\js\try.js" />
+    <Content Include="wwwroot\js\ajax.js" />
     <Content Include="wwwroot\js\view.js" />
     <Content Include="wwwroot\lib\bootstrap\dist\css\bootstrap-grid.css" />
     <Content Include="wwwroot\lib\bootstrap\dist\css\bootstrap-grid.min.css" />

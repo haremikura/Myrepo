@@ -41,11 +41,11 @@ namespace MVCFramework.Models
         public string GetMarkerText(string elementText, string markedText, int caretPosition, string colorcode)
         {
 
-
+            var updateText = new StringBuilder(elementText);
 
             if (markedText.Contains("</span>"))
             {
-                var updateText = new StringBuilder(elementText);
+
                 string fixMarkText = markedText.Replace("</span>", "");
                 string markerCodeText = $@"</span><span style=""background:{colorcode}; "">{fixMarkText}</span>";
                 return updateText.Replace(markedText, markerCodeText, caretPosition, markedText.Length).ToString();
@@ -53,7 +53,6 @@ namespace MVCFramework.Models
             }
             else if (markedText.Contains("<span"))
             {
-                var updateText = new StringBuilder(elementText);
                 var before = Regex.Match(markedText, "<span.*>").Value;
                 string fixMarkText = markedText.Replace(before, "");
                 string markerCodeText = $@"<span style=""background:{colorcode}; "">{fixMarkText}</span>{before}";
@@ -64,9 +63,8 @@ namespace MVCFramework.Models
             {
                 string makrTextCode
                     = $@"<span style=""background:{colorcode}; "">{markedText}</span>";
-                var sb = new StringBuilder(elementText);
                 string fixElementText
-                    = sb.Replace(
+                    = updateText.Replace(
                             markedText,
                             makrTextCode,
                             caretPosition,

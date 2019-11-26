@@ -45,7 +45,7 @@ $('.js_markText').children('li').click(function () {
 
     var cha
         = getAjaxText(
-            "MarkText",
+            "GetMarkText",
             "TextEditor",
             {
                 elementText: $('.currentSelect').text(),
