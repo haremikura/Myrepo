@@ -113,6 +113,7 @@ namespace MVCFramework.Controllers
                 );
         }
 
+        [ValidateInput(false)]
         public MvcHtmlString GetMarkText(string elementText, string markedText, int caretPosition, string colorCode)
         {
             return MvcHtmlString.Create(

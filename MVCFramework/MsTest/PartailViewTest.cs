@@ -3,6 +3,7 @@ using MVCFramework.Models;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Text.RegularExpressions;
 
 namespace MsTest
 {
@@ -44,7 +45,7 @@ namespace MsTest
             string elementText
                 = $"いろはに<span>ほへとちり</span>ぬるを";
 
-            string testText = new PartailView().GetMarkerText(elementText, "ちり</span>ぬる", 13, "#ddd");
+            string testText = new PartailView().GetMarkerText(elementText, "ちりぬる", 6, "#ddd");
 
             string judgeText = $"いろはに<span>ほへと</span><span style=\"background:#ddd; \">ちりぬる</span>を";
 
@@ -53,7 +54,7 @@ namespace MsTest
             Assert.AreEqual(testText, judgeText);
 
 
-            string testText2 = new PartailView().GetMarkerText(elementText, @"はに<span>ほへ", 2, "#ddd");
+            string testText2 = new PartailView().GetMarkerText(elementText, @"はにほへ", 2, "#ddd");
 
             string judgeText2 = $"いろ<span style=\"background:#ddd; \">はにほへ</span><span>とちり</span>ぬるを";
 
@@ -90,5 +91,43 @@ namespace MsTest
 
             Assert.AreEqual(testText2, judgeText2);
         }
+
+
+        [TestMethod]
+        public void IndexSerchCode()
+        {
+
+
+            int answerIndex
+                = GetCarePosition("12anc<span>ddggd</span>kd12kkddg12", "12", 12);
+            Assert.AreEqual(answerIndex, 25);
+
+
+            int answerIndex2
+                = GetCarePosition("12anc<span>dd</span>g<span>gdk</span>d12kkddg12popo12", "12", 12);
+            Assert.AreEqual(answerIndex2, 38);
+
+
+
+            int GetCarePosition(string elementText, string markedText, int caretPositionIndex)
+            {
+                var matches = Regex.Matches(elementText, markedText);
+                foreach (Match match in matches)
+                {
+                    string checkIndex
+                        = Regex.Replace(
+                            elementText.Substring(0, match.Index), "<.*?span.*?>", ""
+                            );
+
+                    if (checkIndex.Length == caretPositionIndex)
+                    {
+                        return match.Index;
+                    }
+                }
+                return 0;
+            }
+
+        }
+
     }
 }

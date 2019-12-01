@@ -69,14 +69,12 @@ function markCurrentEiemet(event, isMark) {
 
 function getCaretPosition() {
     var sel = document.getSelection();
-
     var selectedStr = {
         anchorNode: sel.anchorNode,
         anchorOffset: sel.anchorOffset,
         focusNode: sel.focusNode,
         focusOffset: sel.focusOffset
     };
-
     sel.modify("extend", "backward", "paragraphboundary");
     var pos = sel.toString().length;
     sel.setBaseAndExtent(

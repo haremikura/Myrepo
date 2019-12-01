@@ -38,18 +38,32 @@ namespace MVCFramework.Models
                 );
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="elementText"></param>
+        /// <param name="markedText"></param>
+        /// <param name="caretPosition"></param>
+        /// <param name="colorcode"></param>
+        /// <returns></returns>
         public string GetMarkerText(string elementText, string markedText, int caretPosition, string colorcode)
         {
+
             char[] charsToTrim = { ' ', '\n' };
             var updateText = new StringBuilder(elementText.Trim(charsToTrim));
+            int replacePointIndex = GetCarePosition(elementText, markedText, caretPosition);
+
+            if (replacePointIndex == -1)
+            {
+                return null;
+            }
 
             if (markedText.Contains("</span>"))
             {
 
                 string fixMarkText = markedText.Replace("</span>", "");
                 string markerCodeText = $@"</span><span style=""background:{colorcode}; "">{fixMarkText}</span>";
-                return updateText.Replace(markedText, markerCodeText, caretPosition, markedText.Length).ToString();
-
+                return updateText.Replace(markedText, markerCodeText, replacePointIndex, markedText.Length).ToString();
             }
             else if (markedText.Contains("<span"))
             {
@@ -57,7 +71,7 @@ namespace MVCFramework.Models
                 string fixMarkText = markedText.Replace(before, "");
                 string markerCodeText = $@"<span style=""background:{colorcode}; "">{fixMarkText}</span>{before}";
 
-                return updateText.Replace(markedText, markerCodeText, caretPosition, markedText.Length).ToString();
+                return updateText.Replace(markedText, markerCodeText, replacePointIndex, markedText.Length).ToString();
             }
             else
             {
@@ -67,14 +81,46 @@ namespace MVCFramework.Models
                     = updateText.Replace(
                             markedText,
                             makrTextCode,
-                            caretPosition,
+                            replacePointIndex,
                             markedText.Length)
                         .ToString();
                 return fixElementText;
-
             }
 
+            static int GetCarePosition(string elementText, string markedText, int caretPositionIndex)
+            {
 
+                foreach (Match match in GetMatchText(elementText, markedText))
+                {
+                    string checkIndex
+                        = Regex.Replace(
+                            elementText.Substring(0, match.Index),
+                            "<.*?span.*?>",
+                            ""
+                            );
+
+                    if (checkIndex.Length == caretPositionIndex)
+                    {
+                        return match.Index;
+                    }
+                }
+                return -1;
+
+                MatchCollection GetMatchText(string elementText, string markedText)
+                {
+                    if (Regex.IsMatch(elementText, markedText))
+                    {
+                        return Regex.Matches(elementText, markedText);
+                    }
+
+                    for (int i = 1; i < markedText.Length; i++)
+                    {
+
+                    }
+
+                    return null;
+                }
+            }
         }
     }
 }

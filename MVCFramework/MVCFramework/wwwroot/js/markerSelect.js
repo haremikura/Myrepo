@@ -49,7 +49,7 @@ $('.js_markText').children('li').click(function () {
             "GetMarkText",
             "TextEditor",
             {
-                elementText: $('.currentSelect').text(),
+                elementText: $('.currentSelect')[0].innerHTML,
                 markedText: global.getValue('selectStr'),
                 caretPosition: global.getValue('caretPosition'),
                 colorCode: $(this).find('.themeColor_indigator').css('background-color'),
@@ -70,8 +70,19 @@ function markCurrentEiemet(event, isMark) {
 
 function getCaretPosition() {
     var sel = document.getSelection();
+    var selectedStr = {
+        anchorNode: sel.anchorNode,
+        anchorOffset: sel.anchorOffset,
+        focusNode: sel.focusNode,
+        focusOffset: sel.focusOffset
+    };
     sel.modify("extend", "backward", "paragraphboundary");
     var pos = sel.toString().length;
-    if (sel.anchorNode != undefined) sel.collapseToEnd();
     global.setValue('caretPosition', pos);
+    sel.setBaseAndExtent(
+        selectedStr.anchorNode,
+        selectedStr.anchorOffset,
+        selectedStr.focusNode,
+        selectedStr.focusOffset);
+
 }
