@@ -84,6 +84,5 @@ function getCaretPosition() {
         selectedStr.anchorOffset,
         selectedStr.focusNode,
         selectedStr.focusOffset);
-    // if (sel.anchorNode != undefined) sel.collapseToEnd();
     return pos;
 }
