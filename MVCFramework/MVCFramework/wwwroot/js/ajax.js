@@ -23,7 +23,7 @@ function getAjaxText(action, controller, dataset) {
     var answet = $.ajax({
         url: `/${controller}/${action}`,
         data: dataset,
-        type: 'POST',
+        //type: 'POST',
         async: false,
         success: function (text) {
             return text;

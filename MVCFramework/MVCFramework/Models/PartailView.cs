@@ -40,8 +40,8 @@ namespace MVCFramework.Models
 
         public string GetMarkerText(string elementText, string markedText, int caretPosition, string colorcode)
         {
-
-            var updateText = new StringBuilder(elementText);
+            char[] charsToTrim = { ' ', '\n' };
+            var updateText = new StringBuilder(elementText.Trim(charsToTrim));
 
             if (markedText.Contains("</span>"))
             {

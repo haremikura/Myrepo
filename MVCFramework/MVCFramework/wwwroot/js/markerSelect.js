@@ -14,6 +14,7 @@ $(document).click(function (event) {
             if (selectedStr.length > 0) {
                 visibleRightPoput(event);
                 markCurrentEiemet(event, true);
+                getCaretPosition();
             } else if (selectedStr.length == 0) {
                 hiddenRightPoput();
             }

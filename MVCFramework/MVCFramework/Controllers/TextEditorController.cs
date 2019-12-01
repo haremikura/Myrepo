@@ -40,12 +40,20 @@ namespace MVCFramework.Controllers
 
         public ActionResult EditPage(int number)
         {
-            int currentUserId = int.Parse(HttpSessionStateManager.GetValue(SessionBaseName.UserId).ToString());
+            int currentUserId
+                = int.Parse(HttpSessionStateManager.GetValue(SessionBaseName.UserId));
+
+            var EditText
+                = _context
+                    .EditText
+                    .SingleOrDefault(index => index.FileId.Equals(number));
+
+            HttpSessionStateManager.SetVaue(SessionBaseName.FieldId, EditText.FileId);
+
             EditPageDto eidtPageDto = new EditPageDto()
             {
-                EditText = _context.EditText
-                            .SingleOrDefault(index => index.FileId.Equals(number))
-                            .Text,
+                EditText = EditText.Text,
+
                 MarkerList = _context.Marker
                             .Where(index => index.UserId.Equals(currentUserId))
                             .OrderBy(index => index.DisplayOrder)
@@ -84,9 +92,18 @@ namespace MVCFramework.Controllers
 
         }
 
-        public void GetView(string text)
+        public void GetView(string updateText)
         {
-
+            var update
+                = _context
+                    .EditText
+                    .SingleOrDefault(
+                         index => index.FileId.Equals(
+                            HttpSessionStateManager.GetValue(SessionBaseName.MaxFileId)
+                        )
+                    );
+            update.Text = updateText;
+            _context.SaveChanges();
         }
 
         public MvcHtmlString CrateFileView(string htmlElement, string markText, string colorCode)

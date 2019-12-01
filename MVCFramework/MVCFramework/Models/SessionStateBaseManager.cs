@@ -9,7 +9,8 @@ namespace MVCFramework.Models
         abc,
         UserName,
         UserId,
-        MaxFileId
+        MaxFileId,
+        FieldId
     }
     public static class HttpSessionStateManager
     {
@@ -20,7 +21,14 @@ namespace MVCFramework.Models
         }
         public static string GetValue(SessionBaseName baseName)
         {
-            return HttpContext.Current.Session[baseName.ToString()].ToString();
+            var session = HttpContext.Current.Session[baseName.ToString()];
+
+            if (session == null)
+            {
+                return "null";
+            }
+
+            return session.ToString();
         }
 
 

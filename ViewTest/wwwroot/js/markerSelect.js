@@ -69,8 +69,21 @@ function markCurrentEiemet(event, isMark) {
 
 function getCaretPosition() {
     var sel = document.getSelection();
+
+    var selectedStr = {
+        anchorNode: sel.anchorNode,
+        anchorOffset: sel.anchorOffset,
+        focusNode: sel.focusNode,
+        focusOffset: sel.focusOffset
+    };
+
     sel.modify("extend", "backward", "paragraphboundary");
     var pos = sel.toString().length;
-    if (sel.anchorNode != undefined) sel.collapseToEnd();
+    sel.setBaseAndExtent(
+        selectedStr.anchorNode,
+        selectedStr.anchorOffset,
+        selectedStr.focusNode,
+        selectedStr.focusOffset);
+    // if (sel.anchorNode != undefined) sel.collapseToEnd();
     return pos;
 }

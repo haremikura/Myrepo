@@ -10,9 +10,12 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Web;
 using System.Web.Mvc;
 using XUnitTestProject2.Domain;
+using System.Data.Entity;
+using MVCFramework.Models;
 
 namespace MsTest
 {
@@ -176,7 +179,7 @@ namespace MsTest
 
             void SetMockController()
             {
-                //mockControllerContext.Setup(m => m.HttpContext.Session).Returns(mockSession.Object);
+
                 textEditorControlelr.ControllerContext = mockControllerContext.Object;
                 textEditorControlelr.ModelState.AddModelError("SessionName", "Required");
             }
@@ -221,7 +224,7 @@ namespace MsTest
                 var markerList = new List<IEntity>()
                     {
                         new Marker() { MarkerId = 1, Name = "color1", UserId = 1 ,Color="#998877",DisplayOrder=1},
-                        new Marker (){ MarkerId = 1, Name = "color2", UserId = 1 ,Color="#998877",DisplayOrder=2},
+                        new Marker() { MarkerId = 1, Name = "color2", UserId = 1 ,Color="#998877",DisplayOrder=2},
                         new Marker() { MarkerId = 2, Name = "color3", UserId = 2 ,Color="#665544",DisplayOrder=2},
 
                     };
@@ -265,6 +268,71 @@ namespace MsTest
                 textEditorControlelr.ModelState.AddModelError("SessionName", "Required");
             }
         }
+
+
+        [TestMethod]
+        public void GetViewTest()
+        {
+            mockDbContext = CreateMock();
+            textEditorControlelr = new TextEditorController(mockDbContext);
+
+
+            var mockControllerContext = new Mock<ControllerContext>();
+            SetMockSession();
+            SetMockController();
+            TestAndDebug();
+            IDbContext CreateMock()
+            {
+                var list = new List<IEntity>()
+                {
+                    new EditText{FileId=1,Text = "aaabbcc"},
+                    new EditText{FileId=2,Text = "ddeeff"}
+
+                };
+
+                var mock = new MockCreator(list);
+
+                return mock.GetMockContext().Object;
+            }
+
+            void SetMockSession()
+            {
+                HttpSessionStateManager.SetVaue(SessionBaseName.MaxFileId, 1);
+
+            }
+
+            void SetMockController()
+            {
+                textEditorControlelr.ControllerContext = mockControllerContext.Object;
+                textEditorControlelr.ModelState.AddModelError("SessionName", "Required");
+            }
+
+            void TestAndDebug()
+            {
+                string Before1
+                 = ViewEntity.WriteEntityData(
+                     mockDbContext.EditText.ToArray()
+                     );
+                Debug.WriteLine($"Before List :\r {Before1}");
+
+                textEditorControlelr.GetView("11223344");
+
+                Type type = textEditorControlelr.GetType();
+
+                FieldInfo newContext = type.GetField("_context", BindingFlags.InvokeMethod | BindingFlags.NonPublic | BindingFlags.Instance);
+
+                TextEditorContext context
+                    = newContext.GetValue(textEditorControlelr) as TextEditorContext;
+
+                string After1
+                   = ViewEntity.WriteEntityData(
+                       context.EditText.ToArray()
+                       );
+
+                Debug.WriteLine($"After View :\r {After1}");
+            }
+        }
+
 
     }
 }
