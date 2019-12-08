@@ -50,77 +50,118 @@ namespace MVCFramework.Models
         {
 
             char[] charsToTrim = { ' ', '\n' };
-            var updateText = new StringBuilder(elementText.Trim(charsToTrim));
-            int replacePointIndex = GetCarePosition(elementText, markedText, caretPosition);
+            var fixText
+                = new StringBuilder(elementText.Trim(charsToTrim));
 
-            if (replacePointIndex == -1)
+            (int replacePointIndex, string markTextHasTag) replaceProperty
+                = GetReplaceProperty(elementText, markedText, caretPosition);
+
+            if (replaceProperty.replacePointIndex == -1)
             {
                 return null;
             }
 
-            if (markedText.Contains("</span>"))
-            {
+            int repacePoint = replaceProperty.replacePointIndex;
+            string targetMarkText = replaceProperty.markTextHasTag;
 
-                string fixMarkText = markedText.Replace("</span>", "");
-                string markerCodeText = $@"</span><span style=""background:{colorcode}; "">{fixMarkText}</span>";
-                return updateText.Replace(markedText, markerCodeText, replacePointIndex, markedText.Length).ToString();
+            if (targetMarkText.Contains("</span>"))
+            {
+                //string fixMarkText = markedText.Replace("</span>", "");
+                string markerCodeText = $@"</span><span style=""background:{colorcode}; "">{markedText}</span>";
+                return fixText.Replace(targetMarkText, markerCodeText, repacePoint, targetMarkText.Length).ToString();
             }
-            else if (markedText.Contains("<span"))
+            else if (targetMarkText.Contains("<span"))
             {
-                var before = Regex.Match(markedText, "<span.*>").Value;
-                string fixMarkText = markedText.Replace(before, "");
-                string markerCodeText = $@"<span style=""background:{colorcode}; "">{fixMarkText}</span>{before}";
+                var tag = Regex.Match(targetMarkText, "<span.*>").Value;
+                string fixMarkText = markedText.Replace(tag, "");
+                string newMarkText = $@"<span style=""background:{colorcode}; "">{fixMarkText}</span>{tag}";
 
-                return updateText.Replace(markedText, markerCodeText, replacePointIndex, markedText.Length).ToString();
+                return fixText.Replace(targetMarkText, newMarkText, repacePoint, targetMarkText.Length).ToString();
             }
             else
             {
                 string makrTextCode
                     = $@"<span style=""background:{colorcode}; "">{markedText}</span>";
                 string fixElementText
-                    = updateText.Replace(
+                    = fixText.Replace(
                             markedText,
                             makrTextCode,
-                            replacePointIndex,
+                            replaceProperty.replacePointIndex,
                             markedText.Length)
                         .ToString();
                 return fixElementText;
             }
 
-            static int GetCarePosition(string elementText, string markedText, int caretPositionIndex)
+        }
+
+
+
+
+        /// <summary>
+        /// マーク個所マッチパタンの文字列を求める。
+        /// </summary>
+        /// <param name="elementText">マーク個所の文字列を含む文字列</param>
+        /// <param name="markedText">マーク個所の文字列</param>
+        /// <param name="caretPositionIndex">タグなしでの文字列にたいする、マーク個所の</param>
+        /// <returns>正しい置換ポイントとなるインデックスを返す。当てはまる箇所がない場合、-1を返す。</returns>
+        private (int, string) GetReplaceProperty(string elementText, string markedText, int caretPositionIndex)
+        {
+            //elementからmarkedTextにマッチした情報をMatchCollectionを求める。MatchCollectionの取得は、markTextについての判断をする関数から行う。
+            //MatchCollectionのインデックスmatchの中から、「elementにあるspanタグをのぞいた文字列からmatchのあるindexの距離部分文字列の長さ」が、caretPositionIndexと同じ長さかを調べる
+            (MatchCollection collection, string fixMarkText) markTextMatches = GetMarkTextMatches(elementText, markedText);
+            foreach (Match match in markTextMatches.collection)
             {
+                int checkIndex
+                    = Regex.Replace(
+                        elementText.Substring(0, match.Index),
+                        "<.*?span.*?>",
+                        ""
+                        ).Length;
 
-                foreach (Match match in GetMatchText(elementText, markedText))
+                if (checkIndex == caretPositionIndex)
                 {
-                    string checkIndex
-                        = Regex.Replace(
-                            elementText.Substring(0, match.Index),
-                            "<.*?span.*?>",
-                            ""
-                            );
-
-                    if (checkIndex.Length == caretPositionIndex)
-                    {
-                        return match.Index;
-                    }
-                }
-                return -1;
-
-                MatchCollection GetMatchText(string elementText, string markedText)
-                {
-                    if (Regex.IsMatch(elementText, markedText))
-                    {
-                        return Regex.Matches(elementText, markedText);
-                    }
-
-                    for (int i = 1; i < markedText.Length; i++)
-                    {
-
-                    }
-
-                    return null;
+                    return (match.Index, markTextMatches.fixMarkText);
                 }
             }
+            return (-1, null);
         }
+
+        /// <summary>
+        /// elementTextを繰り返し適応して、markedTextとマッチした一連の対象を求める。
+        /// </summary>
+        /// <param name="elementText">マークされる文字列を含む文字列</param>
+        /// <param name="markedText">マークされる文字列</param>
+        /// <returns>一連の対象</returns>
+        private (MatchCollection, string) GetMarkTextMatches(string elementText, string markedText)
+        {
+            //もし、markedTextが、elementTextの中で、タグを挟む文字列でなければ、、
+            //markedTextで、MatchCollectionを求める。
+            //もし、<span>タグを挟む文字列なら、markedTextの長さ分だけ<span>タグを認識する正規表現を組み込んだ文字列fixMarkedTextで、MatchCollectionを求める。
+            if (Regex.IsMatch(elementText, markedText))
+            {
+                return (Regex.Matches(elementText, markedText), markedText);
+            }
+            else
+            {
+                return GetmarkTetHasTagMatches(elementText, markedText);
+            }
+
+
+            (MatchCollection, string) GetmarkTetHasTagMatches(string elementText, string markedText)
+            {
+                for (int i = 1; i < markedText.Length; i++)
+                {
+                    string fixMarkedText = markedText.Insert(i, "<.*?span.*?>");
+                    var rx = new Regex(fixMarkedText);
+                    if (rx.IsMatch(elementText))
+                    {
+                        string answerMarkedText = rx.Match(elementText).Value;
+                        return (Regex.Matches(elementText, fixMarkedText), answerMarkedText);
+                    }
+                }
+                return (null, null);
+            }
+        }
+
     }
 }

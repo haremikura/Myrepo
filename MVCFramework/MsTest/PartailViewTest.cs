@@ -45,7 +45,7 @@ namespace MsTest
             string elementText
                 = $"いろはに<span>ほへとちり</span>ぬるを";
 
-            string testText = new PartailView().GetMarkerText(elementText, "ちりぬる", 6, "#ddd");
+            string testText = new PartailView().GetMarkerText(elementText, "ちりぬる", 7, "#ddd");
 
             string judgeText = $"いろはに<span>ほへと</span><span style=\"background:#ddd; \">ちりぬる</span>を";
 
@@ -128,6 +128,45 @@ namespace MsTest
             }
 
         }
+
+        /// <summary>
+        /// PartailView.GetMatchCollectionMarkedTextWithTagのを検査する
+        /// </summary>
+        [TestMethod]
+        public void GetMatchCollectionMarkedTextWithTagTest()
+        {
+            testCode($"いろはに<span>ほへとちりぬ</span>るを", "ちりぬる");
+
+            testCode($"いろはに<span>ほへとちり</span>ぬるを", "にほ");
+
+            void testCode(string testText, string markText)
+            {
+                (MatchCollection collection, string fiMarkedText) testMatch
+                    = GetMatchCollectionMarkedTextWithTag(testText, markText);
+                Debug.WriteLine($"{testText} : {markText} -> {testMatch.fiMarkedText}");
+                foreach (Match match in testMatch.collection)
+                {
+
+                    Debug.WriteLine("the match index is " + match.Index);
+                }
+            }
+
+            (MatchCollection, string) GetMatchCollectionMarkedTextWithTag(string elementText, string markedText)
+            {
+                for (int i = 1; i < markedText.Length; i++)
+                {
+                    string fixMarkedText = markedText.Insert(i, "<.*?span.*?>");
+                    var rx = new Regex(fixMarkedText);
+                    if (rx.IsMatch(elementText))
+                    {
+                        string answerMarkedText = rx.Match(elementText).Value;
+                        return (Regex.Matches(elementText, fixMarkedText), answerMarkedText);
+                    }
+                }
+                return (null, null);
+            }
+        }
+
 
     }
 }
