@@ -47,7 +47,7 @@ $('.js_markText').children('li').click(function () {
     var cha
         = getAjaxText(
             "GetMarkText",
-            "TextEditor",
+            "MvcHtmlString",
             {
                 elementText: $('.currentSelect')[0].innerHTML,
                 markedText: global.getValue('selectStr'),

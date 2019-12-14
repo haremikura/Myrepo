@@ -1,5 +1,4 @@
 ﻿using MVCFramework.Models.Entity;
-using System;
 using System.Text;
 using System.Text.RegularExpressions;
 
@@ -53,16 +52,16 @@ namespace MVCFramework.Models
             var fixText
                 = new StringBuilder(elementText.Trim(charsToTrim));
 
-            (int replacePointIndex, string markTextHasTag) replaceProperty
-                = GetReplaceProperty(elementText, markedText, caretPosition);
+            (int replacePointIndex, string markTextHasTag)
+                = GetReplaceProperty(fixText.ToString(), markedText, caretPosition);
 
-            if (replaceProperty.replacePointIndex == -1)
+            if (replacePointIndex == -1)
             {
                 return null;
             }
 
-            int repacePoint = replaceProperty.replacePointIndex;
-            string targetMarkText = replaceProperty.markTextHasTag;
+            int repacePoint = replacePointIndex;
+            string targetMarkText = markTextHasTag;
 
             if (targetMarkText.Contains("</span>"))
             {
@@ -86,7 +85,7 @@ namespace MVCFramework.Models
                     = fixText.Replace(
                             markedText,
                             makrTextCode,
-                            replaceProperty.replacePointIndex,
+                            replacePointIndex,
                             markedText.Length)
                         .ToString();
                 return fixElementText;
@@ -108,8 +107,8 @@ namespace MVCFramework.Models
         {
             //elementからmarkedTextにマッチした情報をMatchCollectionを求める。MatchCollectionの取得は、markTextについての判断をする関数から行う。
             //MatchCollectionのインデックスmatchの中から、「elementにあるspanタグをのぞいた文字列からmatchのあるindexの距離部分文字列の長さ」が、caretPositionIndexと同じ長さかを調べる
-            (MatchCollection collection, string fixMarkText) markTextMatches = GetMarkTextMatches(elementText, markedText);
-            foreach (Match match in markTextMatches.collection)
+            (MatchCollection collection, string fixMarkText) = GetMarkTextMatches(elementText, markedText);
+            foreach (Match match in collection)
             {
                 int checkIndex
                     = Regex.Replace(
@@ -120,7 +119,7 @@ namespace MVCFramework.Models
 
                 if (checkIndex == caretPositionIndex)
                 {
-                    return (match.Index, markTextMatches.fixMarkText);
+                    return (match.Index, fixMarkText);
                 }
             }
             return (-1, null);
@@ -147,16 +146,16 @@ namespace MVCFramework.Models
             }
 
 
-            (MatchCollection, string) GetmarkTetHasTagMatches(string elementText, string markedText)
+            (MatchCollection, string) GetmarkTetHasTagMatches(string element, string markd)
             {
-                for (int i = 1; i < markedText.Length; i++)
+                for (int i = 1; i < markd.Length; i++)
                 {
-                    string fixMarkedText = markedText.Insert(i, "<.*?span.*?>");
+                    string fixMarkedText = markd.Insert(i, "<.*?span.*?>");
                     var rx = new Regex(fixMarkedText);
-                    if (rx.IsMatch(elementText))
+                    if (rx.IsMatch(element))
                     {
-                        string answerMarkedText = rx.Match(elementText).Value;
-                        return (Regex.Matches(elementText, fixMarkedText), answerMarkedText);
+                        string answerMarkedText = rx.Match(element).Value;
+                        return (Regex.Matches(element, fixMarkedText), answerMarkedText);
                     }
                 }
                 return (null, null);

@@ -13,7 +13,7 @@ namespace XUnitTestProject2.Domain
         private Mock _mockSettiongList;
         private readonly Mock<TextEditorContext> _mockContext = new Mock<TextEditorContext>();
         private IList<IEntity> mockEntityList;
-        private List<IEntity> dataEntity;
+        private readonly List<IEntity> dataEntity;
 
         public MockCreator()
         {
@@ -72,7 +72,7 @@ namespace XUnitTestProject2.Domain
 
             _mockContext
                 .Setup(m => m.ServiceUser)
-                .Returns(MockDbSet(MockServiceUser.Select(x => new ServiceUser(x))).Object);
+                .Returns(MockDbSet(MockServiceUser.Select(x => x as ServiceUser)).Object);
         }
 
         public void SetMockCurrentSession()

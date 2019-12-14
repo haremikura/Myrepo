@@ -3,19 +3,17 @@ using Moq;
 using MsTest.Domain;
 using MVCFramework.Controllers;
 using MVCFramework.Infrastracture.Repositries;
+using MVCFramework.Models;
 using MVCFramework.Models.DataTransferObject;
 using MVCFramework.Models.Entity;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Web;
 using System.Web.Mvc;
 using XUnitTestProject2.Domain;
-using System.Data.Entity;
-using MVCFramework.Models;
 
 namespace MsTest
 {
@@ -49,8 +47,17 @@ namespace MsTest
             testController.ModelState.AddModelError("SessionName", "Required");
 
             string[] testViewResult = new string[2];
-            testViewResult[0] = DebugAndGetViewResult(new ServiceUser() { UserName = "テスト智之", Password = "1234" }).ViewName;
-            testViewResult[1] = DebugAndGetViewResult(new ServiceUser() { UserName = "テスト朋美", Password = "7890" }).ViewName;
+            testViewResult[0]
+                = DebugAndGetViewResult(
+                    new ServiceUser() { UserName = "テスト智之", Password = "1234" }
+                    )
+                .ViewName;
+
+            testViewResult[1]
+                = DebugAndGetViewResult(
+                    new ServiceUser() { UserName = "テスト朋美", Password = "7890" }
+                    )
+                .ViewName;
 
             Assert.IsTrue(testViewResult[0] == "~/Views/TextEditor/Index.cshtml");
             Assert.IsTrue(testViewResult[1] == "~/Views/Login/LoginView.cshtml");
@@ -72,67 +79,7 @@ namespace MsTest
             }
         }
 
-        [TestMethod]
-        public void CrateFileTest()
-        {
-            mockDbContext = CreateMock();
-            textEditorControlelr = new TextEditorController(mockDbContext);
 
-            var mockControllerContext = new Mock<ControllerContext>();
-            var mockSession = new Mock<HttpSessionStateBase>();
-            var mockContoroller = new Mock<TextEditorController>();
-
-            SetMockSession();
-            SetMockController();
-            DebugAndGetViewResult("TestName");
-
-            IDbContext CreateMock()
-            {
-                var mock = new MockCreator();
-                mock.SetMockTextFilesList();
-                mock.SetMockEidtText();
-                return mock.GetMockContext().Object;
-            }
-
-            MvcHtmlString DebugAndGetViewResult(string fileName)
-            {
-                string Before1
-                    = ViewEntity.WriteEntityData(mockDbContext.TextFilesList.ToList());
-
-                string Before2
-                    = ViewEntity.WriteEntityData(mockDbContext.EditText.ToList());
-
-                Debug.WriteLine($"Check Data　Before :\r {Before1} \r {Before2}");
-
-                var result = textEditorControlelr.CrateFile(fileName);
-
-                string After1
-                    = ViewEntity.WriteEntityData(mockDbContext.TextFilesList.ToList());
-
-                string After2
-                    = ViewEntity.WriteEntityData(mockDbContext.EditText.ToList());
-
-                Debug.WriteLine($"Check Data After : \r {After1} \r {After2}");
-
-                Debug.WriteLine($"\r=======\r {result.ToHtmlString()}");
-
-                return result;
-            }
-
-            void SetMockSession()
-            {
-                mockControllerContext.Setup(x => x.HttpContext.Session["FileId"]).Returns("1");
-                mockControllerContext.Setup(x => x.HttpContext.Session["MaxFileId"]).Returns("");
-                mockControllerContext.Setup(x => x.HttpContext.Session["UserId"]).Returns("2");
-            }
-
-            void SetMockController()
-            {
-                //mockControllerContext.Setup(m => m.HttpContext.Session).Returns(mockSession.Object);
-                textEditorControlelr.ControllerContext = mockControllerContext.Object;
-                textEditorControlelr.ModelState.AddModelError("SessionName", "Required");
-            }
-        }
 
         [TestMethod]
         public void IndexTest()
@@ -185,21 +132,7 @@ namespace MsTest
             }
         }
 
-        [TestMethod]
-        public void CreateMarkerElemenbtTest()
-        {
-            textEditorControlelr
-                = new TextEditorController();
 
-            string resutlView
-                = textEditorControlelr.CrateFileView(
-                       "asdfkkjffff",
-                        "kkjff",
-                       "#bbccdd"
-                    ).ToString();
-
-            File.AppendAllText(@"C:\Users\TR\OneDrive\Program\C#File\MVCFrameworkFile\GitRepository\MVCFramework\MsTest\Test.txt", resutlView);
-        }
 
         [TestMethod]
         public void EditPageTest()
@@ -218,7 +151,7 @@ namespace MsTest
                 var fileList = new List<IEntity>()
                     {
                         new EditText { FileId = 1, Text = "testFileList",},
-                         new EditText { FileId = 2, Text = "testFileList2",},
+                        new EditText { FileId = 2, Text = "testFileList2",},
                     };
 
                 var markerList = new List<IEntity>()

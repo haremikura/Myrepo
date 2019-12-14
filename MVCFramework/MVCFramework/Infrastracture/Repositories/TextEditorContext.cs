@@ -5,7 +5,7 @@ namespace MVCFramework.Infrastracture.Repositries
 {
     public class TextEditorContext : DbContext, IDbContext
     {
-        public TextEditorContext() : base("TextEditorContext")
+        public TextEditorContext() : base("TextEditorContext2")
         {
             Configuration.LazyLoadingEnabled = false;
         }

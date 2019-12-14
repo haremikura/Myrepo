@@ -1,10 +1,7 @@
-﻿using System;
-using System.Text;
-using System.Collections.Generic;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using MsTest.Domain;
 using MVCFramework.Infrastracture.Repositries;
 using System.Diagnostics;
-using MsTest.Domain;
 using System.Linq;
 
 namespace MsTest

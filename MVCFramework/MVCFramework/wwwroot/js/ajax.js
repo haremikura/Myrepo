@@ -2,7 +2,7 @@
 
 function getMarkText(htmlElement, markText, colorCode) {
     var answet = $.ajax({
-        url: `/$TextEditor/CrateFileView`,
+        url: `/MvcHtmlString/CrateFileView`,
         data: {
             htmlElement: htmlElement,
             markText: markText,

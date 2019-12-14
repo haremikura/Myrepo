@@ -2,7 +2,7 @@
     var button
         = getAjaxText(
             'CrateFile',
-            'TextEditor',
+            'MvcHtmlString',
             { fileName: $('#file_crate_text_box').val() },
         );
     $('#new_file').replaceWith(button);
