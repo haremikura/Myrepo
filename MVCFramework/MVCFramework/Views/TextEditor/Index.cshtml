@@ -1,30 +1,30 @@
 ﻿@model IEnumerable<MVCFramework.Models.Entity.TextFilesList>
 @{
-    ViewData["Title"] = "選択画面";
+    ViewData["Title"] = "作成スタート";
 }
 <div class="container mt-3">
     @using (@Html.BeginForm("EditPage", "TextEditor"))
     {
-    <div id="new_file"></div>
+        <div id="new_file"></div>
         foreach (var index in Model)
         {
-    <div class="content mt-4">
-        <div class="card card_button">
-            <button class="card-body shadow btn-outline-dark">
-                <div class="file_info d-flex">
-                    <div class="file_icon">
-                        <div class="ti-money text-success border-success">
+            <div class="content mt-4">
+                <div class="card card_button">
+                    <button class="card-body shadow btn-outline-dark">
+                        <div class="file_info d-flex">
+                            <div class="file_icon">
+                                <div class="ti-money text-success border-success">
+                                </div>
+                            </div>
+                            <div class="file_message">
+                                <div class="file_name">@index.FileName</div>
+                                <div class="file_date">@index.Update</div>
+                            </div>
                         </div>
-                    </div>
-                    <div class="file_message">
-                        <div class="file_name">@index.FileName</div>
-                        <div class="file_date">@index.Update</div>
-                    </div>
+                    </button>
+                    @Html.Hidden("fileId", @index.FileId)
                 </div>
-            </button>
-            @Html.Hidden("number", @index.FileId)
-        </div>
-    </div>
+            </div>
         }
     }
 </div>

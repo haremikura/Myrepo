@@ -124,8 +124,9 @@ namespace MVCFramework.Models
             //elementからmarkedTextにマッチした情報をMatchCollectionを求める。
             //MatchCollectionの取得は、markTextを引数にとる関数から取得する。
 
-            //MatchCollectionのインデックスmatchの中から、elementにあるspanタグを
-            //のぞいた文字列からmatchのあるindexの距離部分文字列の長さ」が、caretPosition
+            //MatchCollectionのインデックスmatchの中から、
+            //「elementにあるspanタグをのぞいた文字列からmatchのあるindex
+            // の距離部分文字列の長さ」が、caretPositionにあたる
             (MatchCollection collection, string fixMarkText) = GetMarkTextMatches(elementText, markedText);
             foreach (Match match in collection)
             {
@@ -154,7 +155,9 @@ namespace MVCFramework.Models
         {
             //もし、markedTextが、elementTextの中で、タグを挟む文字列でなければ、
             //markedTextで、MatchCollectionを求める。
-            //もし、<span>タグを挟む文字列なら、markedTextの長さ分だけ<span>タグを認識する正規表現を組み込んだ文字列fixMarkedTextで、MatchCollectionを求める。
+            //もし、<span>タグを挟む文字列なら、markedTextの長さ分だけ
+            //<span>タグを認識する正規表現を組み込んだ文字列fixMarkedTextで、
+            //MatchCollectionを求める。
             if (Regex.IsMatch(elementText, markedText))
             {
                 return (Regex.Matches(elementText, markedText), markedText);

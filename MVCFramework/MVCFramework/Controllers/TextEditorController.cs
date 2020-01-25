@@ -26,7 +26,10 @@ namespace MVCFramework.Controllers
         {
         }
 
-
+        /// <summary>
+        /// 作成スタート画面を表示数する
+        /// </summary>
+        /// <returns>作成スタート画面を返す</returns>
         [NoCache]
         public ActionResult Index()
         {
@@ -38,15 +41,21 @@ namespace MVCFramework.Controllers
             return View("~/Views/TextEditor/Index.cshtml", list);
         }
 
-        public ActionResult EditPage(int number)
+        /// <summary>
+        /// テキスト入力画面を作成する
+        /// </summary>
+        /// <param name="fileId">入力されたファイルId</param>
+        /// <returns>テキスト入力画面</returns>
+        public ActionResult EditPage(string fileId)
         {
             int currentUserId
                 = int.Parse(HttpSessionStateManager.GetValue(SessionBaseName.UserId));
 
+            int fieldId = int.Parse(fileId);
             var EditText
                 = _context
                     .EditText
-                    .SingleOrDefault(index => index.FileId.Equals(number));
+                    .SingleOrDefault(index => index.FileId.Equals(fieldId));
 
             HttpSessionStateManager.SetVaue(SessionBaseName.FieldId, EditText.FileId);
 
@@ -63,7 +72,7 @@ namespace MVCFramework.Controllers
             return View("~/Views/TextEditor/EditPage.cshtml", eidtPageDto);
         }
 
-      
+
         public void GetView(string updateText)
         {
             var update
@@ -78,7 +87,7 @@ namespace MVCFramework.Controllers
             _context.SaveChanges();
         }
 
-      
+
 
     }
 
