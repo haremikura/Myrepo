@@ -10,7 +10,7 @@ namespace MVCFramework.Controllers
 
 {
     /// <summary>
-    /// 「[]
+    /// ログイン処理を担うコントローラー
     /// </summary>
     public class LoginController : Controller
     {
@@ -32,6 +32,11 @@ namespace MVCFramework.Controllers
             return View();
         }
 
+        /// <summary>
+        /// ログインを認証して、テキストディタページに戻る。
+        /// </summary>
+        /// <param name="user">入力されたユーザーエンティティ</param>
+        /// <returns>データーベースに存在する名前とパスワードなら、</returns>
         public ActionResult Index(ServiceUser user)
         {
 
@@ -46,6 +51,7 @@ namespace MVCFramework.Controllers
                 HttpSessionStateManager.SetVaue(SessionBaseName.MaxFileId, _context.TextFilesList.Max(index => index.FileId));
             }
 
+            //テスト用コード
             //return isAuthorized ? View("~/Views/TextEditor/Index.cshtml") : View("~/Views/Login/LoginView.cshtml");
 
             return isAuthorized ? new TextEditorController().Index() : View("~/Views/Login/LoginView.cshtml");

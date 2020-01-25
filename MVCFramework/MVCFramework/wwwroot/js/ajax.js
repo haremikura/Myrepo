@@ -1,5 +1,5 @@
 ﻿
-
+//テキストにマーカーをつける。
 function getMarkText(htmlElement, markText, colorCode) {
     var answet = $.ajax({
         url: `/MvcHtmlString/CrateFileView`,

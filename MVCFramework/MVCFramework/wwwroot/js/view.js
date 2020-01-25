@@ -1,4 +1,5 @@
-﻿$('#js_file_crate_button').click(function () {
+﻿//ファイルを作成する。
+$('#js_file_crate_button').click(function () {
     var button
         = getAjaxText(
             'CrateFile',

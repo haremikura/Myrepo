@@ -4,9 +4,17 @@ using System.Text.RegularExpressions;
 
 namespace MVCFramework.Models
 {
+    /// <summary>
+    /// ビューの部品を追加するクラスです。
+    /// </summary>
     public class PartailView
     {
-        public string GetButton(TextFilesList textFilesList)
+        /// <summary>
+        /// ファイル選択ボタンのrasorを作成する
+        /// </summary>
+        /// <param name="textFilesList">ボタンとなるTextFilesList</param>
+        /// <returns>ファイル選択ボタンのrazor</returns>
+        public string GetFileSelectButton(TextFilesList textFilesList)
         {
             return $@" <div class=""content mt-4"">
                 <div class=""card card_button"">
@@ -29,7 +37,14 @@ namespace MVCFramework.Models
             </div>";
         }
 
-        internal string GetColor(string htmlElement, string markText, string colorCode)
+        /// <summary>
+        ///　
+        /// </summary>
+        /// <param name="htmlElement"></param>
+        /// <param name="markText"></param>
+        /// <param name="colorCode"></param>
+        /// <returns></returns>
+        internal string GetMarkerColorIndex(string htmlElement, string markText, string colorCode)
         {
             return htmlElement.Replace(
                 markText,
@@ -38,19 +53,20 @@ namespace MVCFramework.Models
         }
 
         /// <summary>
-        /// 
+        /// マークされたテキストのrazorを作成する。
         /// </summary>
-        /// <param name="elementText"></param>
-        /// <param name="markedText"></param>
-        /// <param name="caretPosition"></param>
-        /// <param name="colorcode"></param>
-        /// <returns></returns>
+        /// <param name="elementText">マークされるテキストのrazor</param>
+        /// <param name="markedText">マークされるテキスの、表示上の文字</param>
+        /// <param name="caretPosition">タグなしでの文字列に対する、マーク個所の位置</param>
+        /// <param name="colorcode">マークの色のコード</param>
+        /// <returns>マークされたテキストのrazor</returns>
         public string GetMarkerText(string elementText, string markedText, int caretPosition, string colorcode)
         {
 
-            char[] charsToTrim = { ' ', '\n' };
+            //elementTextから、空行と、改行をを除去したfixTextを取得する
             var fixText
-                = new StringBuilder(elementText.Trim(charsToTrim));
+                = new StringBuilder(elementText.Trim( ' ', '\n' ));
+
 
             (int replacePointIndex, string markTextHasTag)
                 = GetReplaceProperty(fixText.ToString(), markedText, caretPosition);
@@ -63,9 +79,9 @@ namespace MVCFramework.Models
             int repacePoint = replacePointIndex;
             string targetMarkText = markTextHasTag;
 
+            //targetMarkTextに含まれるタグの条件で変更して、fixTextのstringを置換する
             if (targetMarkText.Contains("</span>"))
             {
-                //string fixMarkText = markedText.Replace("</span>", "");
                 string markerCodeText = $@"</span><span style=""background:{colorcode}; "">{markedText}</span>";
                 return fixText.Replace(targetMarkText, markerCodeText, repacePoint, targetMarkText.Length).ToString();
             }
@@ -101,12 +117,15 @@ namespace MVCFramework.Models
         /// </summary>
         /// <param name="elementText">マーク個所の文字列を含む文字列</param>
         /// <param name="markedText">マーク個所の文字列</param>
-        /// <param name="caretPositionIndex">タグなしでの文字列にたいする、マーク個所の</param>
+        /// <param name="caretPosition">タグなしでの文字列に対する、マーク個所の位置</param>
         /// <returns>正しい置換ポイントとなるインデックスを返す。当てはまる箇所がない場合、-1を返す。</returns>
-        private (int, string) GetReplaceProperty(string elementText, string markedText, int caretPositionIndex)
+        private (int, string) GetReplaceProperty(string elementText, string markedText, int caretPosition)
         {
-            //elementからmarkedTextにマッチした情報をMatchCollectionを求める。MatchCollectionの取得は、markTextについての判断をする関数から行う。
-            //MatchCollectionのインデックスmatchの中から、「elementにあるspanタグをのぞいた文字列からmatchのあるindexの距離部分文字列の長さ」が、caretPositionIndexと同じ長さかを調べる
+            //elementからmarkedTextにマッチした情報をMatchCollectionを求める。
+            //MatchCollectionの取得は、markTextを引数にとる関数から取得する。
+
+            //MatchCollectionのインデックスmatchの中から、elementにあるspanタグを
+            //のぞいた文字列からmatchのあるindexの距離部分文字列の長さ」が、caretPosition
             (MatchCollection collection, string fixMarkText) = GetMarkTextMatches(elementText, markedText);
             foreach (Match match in collection)
             {
@@ -117,7 +136,7 @@ namespace MVCFramework.Models
                         ""
                         ).Length;
 
-                if (checkIndex == caretPositionIndex)
+                if (checkIndex == caretPosition)
                 {
                     return (match.Index, fixMarkText);
                 }
@@ -133,7 +152,7 @@ namespace MVCFramework.Models
         /// <returns>一連の対象</returns>
         private (MatchCollection, string) GetMarkTextMatches(string elementText, string markedText)
         {
-            //もし、markedTextが、elementTextの中で、タグを挟む文字列でなければ、、
+            //もし、markedTextが、elementTextの中で、タグを挟む文字列でなければ、
             //markedTextで、MatchCollectionを求める。
             //もし、<span>タグを挟む文字列なら、markedTextの長さ分だけ<span>タグを認識する正規表現を組み込んだ文字列fixMarkedTextで、MatchCollectionを求める。
             if (Regex.IsMatch(elementText, markedText))

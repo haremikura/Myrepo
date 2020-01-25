@@ -1,9 +1,9 @@
-//文章を選択したのアクション
+//マーカー選択ポップアップ
+//文章を選択したとき、マーカー
 $(document).click(function (event) {
     //入力した文章の要素を取得する
 
     //マーカーを選ぶポップアップを表示する
-
     if ($(event.target).closest('.container').length) {
 
         if (window.getSelection) {
@@ -13,8 +13,8 @@ $(document).click(function (event) {
 
             if (selectedStr.length > 0) {
                 visibleRightPoput(event);
-                markCurrentEiemet(event, true);
-                getCaretPosition();
+                markCurrentEleemet(event, true);
+                getSelectionPosition();
             } else if (selectedStr.length == 0) {
                 hiddenRightPoput();
             }
@@ -28,6 +28,7 @@ $(document).click(function (event) {
         global.setValue('selectStr', selectedStr);
     }
 
+    //ポップアップを開く
     function visibleRightPoput(event) {
         $('.right-popup')
             .css('top', event.pageY + 10)
@@ -35,6 +36,7 @@ $(document).click(function (event) {
             .css('visibility', 'visible');
     }
 
+    //ポップアップを閉じる。
     function hiddenRightPoput() {
         $('.right-popup')
             .css('visibility', 'hidden');
@@ -56,10 +58,11 @@ $('.js_markText').children('li').click(function () {
             });
 
     $('.currentSelect').text('').html(cha)
-    markCurrentEiemet(event, false);
+    markCurrentEleemet(event, false);
 })
 
-function markCurrentEiemet(event, isMark) {
+//現在選択した要素にマーカーを引く。
+function markCurrentEleemet(event, isMark) {
     if (isMark) {
         $(event.target).addClass('currentSelect');
     } else {
@@ -68,7 +71,8 @@ function markCurrentEiemet(event, isMark) {
 
 }
 
-function getCaretPosition() {
+//選択した文の、文章中の距離となる情報を記録する。
+function getSelectionPosition() {
     var sel = document.getSelection();
     var selectedStr = {
         anchorNode: sel.anchorNode,
